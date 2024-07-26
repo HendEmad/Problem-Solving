@@ -1,7 +1,7 @@
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/">1209.remove all adjacent duplicates in string ii</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     string removeDuplicates(string s, int k) {
@@ -35,7 +35,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/check-if-word-is-valid-after-substitutions/">1003.check if word is valid after substitutions</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     bool isValid(string s) {
@@ -74,7 +74,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/flatten-nested-list-iterator/">341.flatten nested list iterator</a></strong></summary>
 
-```
+```cpp
 /**
  * // This is the interface that allows for creating nested lists.
  * // You should not implement it, or speculate about its implementation
@@ -134,7 +134,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/exclusive-time-of-functions/">636.exclusive time of functions</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<int> exclusiveTime(int n, vector<string>& logs) {
@@ -176,7 +176,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/html-entity-parser/">1410.html entity parser</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     string entityParser(string text) {
@@ -221,7 +221,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/decoded-string-at-index/">880.decoded string at index</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     string decodeAtIndex(string s, int k) {
@@ -254,7 +254,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/sum-of-subarray-minimums/">907.sum of subarray minimums</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     const int MOD = 1e9 + 7;
@@ -302,7 +302,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/132-pattern/">456.132 pattern</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     bool find132pattern(vector<int>& nums) {
@@ -331,7 +331,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/verify-preorder-sequence-in-binary-search-tree/">331.verify preorder sequence in binary search tree</a></strong></summary>
 
-```
+```cpp
 // Time complexity = O(n), space complexity = O(1)
 class Solution {
 public:
@@ -377,7 +377,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/minimum-insertions-to-balance-a-parentheses-string/">1541.minimum insertions to balance a parentheses string</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int minInsertions(string s) {
@@ -439,7 +439,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/asteroid-collision/">735.asteroid collision</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) {
@@ -484,7 +484,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/mini-parser/">385.mini parser</a></strong></summary>
 
-```
+```cpp
 /**
  * // This is the interface that allows for creating nested lists.
  * // You should not implement it, or speculate about its implementation
@@ -550,7 +550,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/longest-well-performing-interval/">1124.longest well performing interval</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int longestWPI(vector<int>& hours) {

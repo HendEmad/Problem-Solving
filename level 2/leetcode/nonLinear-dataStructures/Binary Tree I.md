@@ -1,7 +1,7 @@
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/n-ary-tree-preorder-traversal/">589.N-ary Tree Preorder Traversal</a></strong></summary>
 
-  ```
+  ```cpp
   class Solution {
 public:
     vector <int> ans;
@@ -25,7 +25,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/n-ary-tree-postorder-traversal/">590.N-ary Tree Postorder Traversal</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector <int> ans;
@@ -48,7 +48,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/search-in-a-binary-search-tree/">700.Search in a Binary Search Tree</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
 
@@ -70,7 +70,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/">1022.Sum of Root To Leaf Binary Numbers</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
 
@@ -100,7 +100,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/univalued-binary-tree/">965.Univalued Binary Tree</a></strong></summary>
 
-```
+```cpp
 class Solution {
     bool isUnival(TreeNode* node, int value) {
         // If the node is NULL, return true
@@ -124,7 +124,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/sum-of-left-leaves/">404.Sum of Left Leaves</a></strong></summary>
 
-```
+```cpp
 class Solution {
     int sumOfLeftLeavesHelper(TreeNode* node, bool isLeft) {
         if (node == NULL) return 0;
@@ -147,7 +147,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/two-sum-iv-input-is-a-bst/">653.Two Sum IV - Input is a BST</a></strong></summary>
 
-```
+```cpp
 class Solution {
     bool find(TreeNode* node, int k, unordered_set<int>& seen) {
         if (node == NULL) {
@@ -174,7 +174,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/binary-tree-pruning/">814.Binary Tree Pruning</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     TreeNode* pruneTree(TreeNode* root) {
@@ -192,7 +192,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/construct-string-from-binary-tree/">606.Construct String from Binary Tree</a></strong></summary>
 
-```
+```cpp
 class Solution {
     private :
     void create(TreeNode* root , string &st){
@@ -228,7 +228,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/">1008.Construct Binary Search Tree from Preorder Traversal</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     TreeNode* solve(vector<int>p,int mini,int maxi,int&i){
@@ -258,7 +258,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/insert-into-a-binary-search-tree/">701.Insert into a Binary Search Tree</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     TreeNode* insertIntoBST(TreeNode* root, int d) {
@@ -294,7 +294,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/find-elements-in-a-contaminated-binary-tree/">1261.Find Elements in a Contaminated Binary Tree</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     TreeNode* insertIntoBST(TreeNode* root, int d) {
@@ -330,7 +330,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/delete-leaves-with-a-given-value/">1325.Delete Leaves With a Given Value</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     void remove(TreeNode * root,int t){
@@ -371,7 +371,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/find-mode-in-binary-search-tree/">501.Find Mode in Binary Search Tree</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
 void inorder(TreeNode* root,unordered_map<int,int>&mp){
@@ -403,7 +403,7 @@ void inorder(TreeNode* root,unordered_map<int,int>&mp){
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/maximum-binary-tree-ii/">998.Maximum Binary Tree II</a></strong></summary>
 
-```
+```cpp
 TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
     TreeNode* res;
     if (root==NULL) {
@@ -425,7 +425,7 @@ TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/">889.Construct Binary Tree from Preorder and Postorder Traversal</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
 

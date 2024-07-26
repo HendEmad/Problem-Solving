@@ -1,7 +1,7 @@
 <details>
   <summary><strong><a href="https://leetcode.com/problems/diagonal-traverse-ii/"> 1424.diagonal traverse ii </a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
@@ -30,7 +30,7 @@ public:
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/partition-array-into-disjoint-intervals/">915.partition array into disjoint intervals</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int partitionDisjoint(vector<int>& nums) {
@@ -63,7 +63,7 @@ public:
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/maximum-width-ramp/">962.maximum width ramp</a></strong></summary>
 
-```
+```cpp
 // Solution 1; time limit exceed
 class Solution {
 public:
@@ -111,7 +111,7 @@ public:
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/maximize-distance-to-closest-person/">849.maximize distance to closest person</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int maxDistToClosest(vector<int>& seats) {
@@ -145,7 +145,7 @@ public:
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/decrease-elements-to-make-array-zigzag/">1144.decrease elements to make array zigzag</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int movesToMakeZigzag(vector<int>& nums) {
@@ -186,7 +186,7 @@ public:
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/global-and-local-inversions/">775.global and local inversions</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     bool isIdealPermutation(vector<int>& nums) {
@@ -205,7 +205,7 @@ public:
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/product-of-the-last-k-numbers/">1352.product of the last k numbers</a></strong></summary>
 
-```
+```cpp
 class ProductOfNumbers {
 private:
     vector <int> products;
@@ -242,7 +242,7 @@ public:
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/maximum-swap/">670.maximum swap</a></strong></summary>
 
-```
+```cpp
 /* 
 Approach: Swap from the right to the left to scan the digits from right to left, while keeping track of the current maximum.
 Whenever we find a new digit that smaller than the maximum, we update the the maximum by swapping it with the found smaller one. 
@@ -293,7 +293,7 @@ public:
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/check-if-array-pairs-are-divisible-by-k/">1497.check if array pairs are divisible by k</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     bool canArrange(vector<int>& arr, int k) {
@@ -314,7 +314,7 @@ public:
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/majority-element-ii/">229.majority element ii</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
@@ -337,7 +337,7 @@ public:
 <details>
   <summary><strong><a href = "https://leetcode.com/problems/valid-triangle-number/">611.valid triangle number</a></strong></summary>
 
-```
+```cpp
 // First solution; time complexity = O(n^3); time limit exceed
 class Solution {
 public:

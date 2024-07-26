@@ -1,7 +1,7 @@
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/">1290.convert binary number in a linked list to integer</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -50,7 +50,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/delete-node-in-a-linked-list/">237.delete node in a linked list</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -73,7 +73,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/add-two-numbers-ii/">445.add two numbers ii</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -137,7 +137,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/merge-in-between-linked-lists/">1669.merge in between linked lists</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -187,7 +187,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/swapping-nodes-in-a-linked-list/">1721.swapping nodes in a linked list</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -232,7 +232,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/design-linked-list/">707.design linked list</a></strong></summary>
 
-```
+```cpp
 class Node {
   public:
     int val;
@@ -355,7 +355,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/next-greater-node-in-linked-list/">1019.next greater node in linked list</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -401,7 +401,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/split-linked-list-in-parts/">725.split linked list in parts</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<ListNode*> splitListToParts(ListNode* head, int k) {
@@ -455,7 +455,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/linked-list-components/">817.linked list components</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -501,7 +501,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/">109.convert sorted list to binary search tree</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -568,7 +568,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/">1171.	remove zero sum consecutive nodes from linked list</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {

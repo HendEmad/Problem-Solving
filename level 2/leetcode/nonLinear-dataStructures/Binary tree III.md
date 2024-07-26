@@ -1,7 +1,7 @@
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/find-duplicate-subtrees/description/">652. Find Duplicate Subtrees</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -65,7 +65,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/add-one-row-to-tree/description/">623. Add One Row to Tree</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -127,7 +127,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/check-completeness-of-a-binary-tree/description/">958. Check Completeness of a Binary Tree</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -169,7 +169,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/even-odd-tree/description/">1609. Even Odd Tree</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -221,7 +221,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/balance-a-binary-search-tree/description/">1382. Balance a Binary Search Tree</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     // Vector to store the values of nodes in sorted order
@@ -257,7 +257,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/flip-equivalent-binary-trees/description/">951. Flip Equivalent Binary Trees</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -299,7 +299,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/description/">671. Second Minimum Node In a Binary Tree</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -339,7 +339,7 @@ void inorder(TreeNode* root, set<int>& unique_vals) {
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/special-binary-string/description/">761. Special Binary String</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     string makeLargestSpecial(string s) {
@@ -376,7 +376,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/maximum-number-of-balloons/description/">1189. Maximum Number of Balloons</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int maxNumberOfBalloons(string text) {
@@ -396,7 +396,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/path-in-zigzag-labelled-binary-tree/description/">1104. Path In Zigzag Labelled Binary Tree</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<int> pathInZigZagTree(int label) {
@@ -425,7 +425,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/unique-binary-search-trees/description/">96. Unique Binary Search Trees</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int numTrees(int n) {

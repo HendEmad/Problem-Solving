@@ -1,7 +1,7 @@
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/k-th-symbol-in-grammar/">779.k-th symbol in grammar</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int kthGrammar(int n, int k) {
@@ -25,7 +25,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/longest-univalue-path/">687.longest univalue path</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int longestUnivaluePath(TreeNode* root) {
@@ -74,7 +74,7 @@ private:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/design-twitter/">355.design twitter</a></strong></summary>
 
-```
+```cpp
 class Twitter {
 public:
     vector<pair<int, int>> cake; // userid, tweet id
@@ -127,7 +127,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/4sum/">18.4sum</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
@@ -181,7 +181,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/trim-a-binary-search-tree/">669.trim a binary search tree</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -232,7 +232,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/get-equal-substrings-within-budget/">1208.get equal substrings within budget</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int equalSubstring(string s, string t, int maxCost) {
@@ -258,7 +258,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/basic-calculator-ii/">227.basic calculator ii</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int calculate(string s) {

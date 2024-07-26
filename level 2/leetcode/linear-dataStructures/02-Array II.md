@@ -1,7 +1,7 @@
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/friends-of-appropriate-ages/">528.friends of appropriate ages</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int numFriendRequests(std::vector<int>& ages) {
@@ -43,7 +43,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/magic-squares-in-grid/">840.magic squares in grid</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int numMagicSquaresInside(vector<vector<int>>& grid) {
@@ -108,7 +108,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/snapshot-array/">1146.snapshot array</a></strong></summary>
 
-```
+```cpp
 class SnapshotArray {
 private:
     vector <unordered_map<int, int>> listOfVersions;
@@ -143,7 +143,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/can-make-palindrome-from-substring/">1177.can make palindrome from substring</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<bool> canMakePaliQueries(string s, vector<vector<int>>& queries) {
@@ -184,7 +184,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/k-diff-pairs-in-an-array/">532.k diff pairs in an array</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
 
@@ -225,7 +225,7 @@ int bs(vector<int>&nums,int start, int x){
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts/">1465.maximum area of a piece of cake after horizontal and vertical cuts</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     const int MOD = 1e9 + 7;
@@ -254,7 +254,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/beautiful-arrangement-ii/">667.beautiful arrangement ii</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<int> constructArray(int n, int k) {
@@ -280,7 +280,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/shortest-unsorted-continuous-subarray/">581.shortest unsorted continuous subarray</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int findUnsortedSubarray(vector<int>& nums) {
@@ -308,7 +308,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/invalid-transactions/">1169.invalid transactions</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
 
@@ -380,7 +380,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/circular-array-loop/">457.circular array loop</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int next(const vector<int>& nums, int i){
@@ -426,7 +426,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/non-decreasing-array/">665.non decreasing array</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     bool checkPossibility(vector<int>& nums) {
@@ -460,7 +460,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60/">1010.pairs of songs with total durations divisible by 60</a></strong></summary>
 
-```
+```cpp
 class Solution{
 public:
     int numPairsDivisibleBy60(vector<int>& time)
@@ -487,7 +487,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/number-of-sub-arrays-with-odd-sum/">1524.number of sub arrays with odd sum</a></strong></summary>
 
-```
+```cpp
 class Solution {
     const int MOD = 1e9 + 7;
 public:

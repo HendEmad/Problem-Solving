@@ -1,7 +1,7 @@
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/throne-inheritance/description/">1600. Throne Inheritance</a></strong></summary>
 
-```
+```cpp
 class ThroneInheritance {
 public:
  unordered_map<string,vector<string>>mpp;
@@ -45,7 +45,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/most-frequent-subtree-sum/description/">508. Most Frequent Subtree Sum</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -91,7 +91,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/complete-binary-tree-inserter/description/">919. Complete Binary Tree Inserter</a></strong></summary>
 
-```
+```cpp
 class CBTInserter {
 public:
     TreeNode*r;
@@ -140,7 +140,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/serialize-and-deserialize-bst/description/">449. Serialize and Deserialize BST</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -204,7 +204,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/description/">1339. Maximum Product of Splitted Binary Tree</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -251,7 +251,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/delete-node-in-a-bst/description/">450. Delete Node in a BST</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -313,7 +313,7 @@ TreeNode* maxvalue(TreeNode* root){
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/print-binary-tree/description/">655. Print Binary Tree</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {

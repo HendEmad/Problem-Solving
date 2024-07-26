@@ -1,7 +1,7 @@
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/number-of-recent-calls/">933.number of recent calls</a></strong></summary>
 
-```
+```cpp
 class RecentCounter {
 public:
     queue<int> q;
@@ -28,7 +28,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/design-circular-deque/">641.design circular deque</a></strong></summary>
 
-```
+```cpp
 class MyCircularDeque {
 public:
     int n;
@@ -141,7 +141,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/design-circular-queue/">622.design circular queue</a></strong></summary>
 
-```
+```cpp
 class MyCircularQueue {
 int rear, front, length, *arr, size;
 public:
@@ -202,7 +202,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/jump-game-vi/">1696.jump game vi</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int maxResult(vector<int>& nums, int k) {
@@ -236,7 +236,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/score-of-parentheses/">856.score of parentheses</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int scoreOfParentheses(string s) {
@@ -262,7 +262,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/design-front-middle-back-queue/">1670.design front middle back queue</a></strong></summary>
 
-```
+```cpp
 class FrontMiddleBackQueue {
     deque<int>dq;
     stack<int>s;
@@ -340,7 +340,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/max-consecutive-ones-iii/">1004.max consecutive ones iii</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int longestOnes(vector<int>& nums, int k) {
@@ -372,7 +372,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/grumpy-bookstore-owner/">1052.grumpy bookstore owner</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int minutes) {
@@ -408,7 +408,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/">1456.	maximum number of vowels in a substring of given length</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int maxVowels(string s, int k) {
@@ -443,7 +443,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/moving-stones-until-consecutive-ii/">1040.moving stones until consecutive ii</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<int> numMovesStonesII(vector<int>& stones) {
@@ -478,7 +478,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/">1438.longest continuous subarray with absolute diff less than or equal to limit</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int longestSubarray(vector<int>& nums, int limit) {

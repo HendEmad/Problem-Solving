@@ -1,7 +1,7 @@
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/remove-outermost-parentheses/">1021.remove outermost parentheses</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     string removeOuterParentheses(string s) {
@@ -31,7 +31,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/">1047.remove all adjacent duplicates in string</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     string removeDuplicates(string s) {
@@ -60,7 +60,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/build-an-array-with-stack-operations/">1441.build an array with stack operations</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<string> buildArray(vector<int>& target, int n) {
@@ -86,7 +86,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/baseball-game/">682.baseball game</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int calPoints(vector<string>& operations) {
@@ -124,7 +124,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/design-a-stack-with-increment-operation/">1381.design a stack with increment operation</a></strong></summary>
 
-```
+```cpp
 class CustomStack {
     vector<int> stack;
     int maxSize;
@@ -170,7 +170,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/next-greater-element-i/">496.next greater element i</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
@@ -208,7 +208,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/crawler-log-folder/">1598.crawler log folder</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     int minOperations(vector<string>& logs) {
@@ -237,7 +237,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/binary-tree-postorder-traversal/">145.binary tree postorder traversal</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -277,7 +277,7 @@ private:
 <details>
 <summary><strong><a href = "">144.binary tree preorder traversal</a></strong></summary>
 
-```
+```cpp
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -318,7 +318,7 @@ private:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/make-the-string-great/">1544.make the string great</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     string makeGood(string s) {
@@ -348,7 +348,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/implement-queue-using-stacks/">232.implement queue using stacks</a></strong></summary>
 
-```
+```cpp
 class MyQueue {
     stack <int> inputStack;
     stack <int> outputStack;
@@ -403,7 +403,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/implement-stack-using-queues/">225.implement stack using queues</a></strong></summary>
 
-```
+```cpp
 class MyStack {
     queue <int> inputQueue;
     queue <int> outputQueue;
@@ -455,7 +455,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/validate-stack-sequences/">946.validate stack sequences</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
@@ -478,7 +478,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/reverse-substrings-between-each-pair-of-parentheses/">1190.reverse substrings between each pair of parentheses</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     string reverseParentheses(string s) {
@@ -518,7 +518,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/">1249.minimum remove to make valid parentheses</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
@@ -556,7 +556,7 @@ public:
 <details>
 <summary><strong><a href = "">901.online stock span</a></strong></summary>
 
-```
+```cpp
 class StockSpanner {
 public:
     stack <pair<int, int>> st;

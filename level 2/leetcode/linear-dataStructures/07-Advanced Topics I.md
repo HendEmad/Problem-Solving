@@ -1,7 +1,7 @@
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/count-sub-islands/">1905.count sub islands</a></strong></summary>
 
-```
+```cpp
 class Solution {
 private:
     void dfs(vector<vector<int>>& grid, int i, int j, unordered_set<int>& island) {
@@ -56,7 +56,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/min-cost-to-connect-all-points/">1584.min cost to connect all points</a></strong></summary>
 
-```
+```cpp
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -154,7 +154,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/range-sum-query-mutable/">307.range sum query mutable</a></strong></summary>
 
-```
+```cpp
 class NumArray {
 public:
     NumArray(vector<int>& nums) {
@@ -214,7 +214,7 @@ private:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/search-suggestions-system/">1268.search suggestions system</a></strong></summary>
 
-```
+```cpp
 class TrieNode {
 public:
     vector<TrieNode*> children;
@@ -286,7 +286,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/lexicographical-numbers/">386.lexicographical numbers</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<int> lexicalOrder(int n) {
@@ -314,7 +314,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/short-encoding-of-words/">820.short encoding of words</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     struct Trie {
@@ -371,8 +371,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/valid-tic-tac-toe-state/">794.valid tic tac toe state</a></strong></summary>
 
-```
-
+```cpp
 class Solution {
 public:
     bool validTicTacToe(vector<string>& board) {
@@ -405,7 +404,7 @@ public:
 <details>
 <summary><strong><a href = "https://leetcode.com/problems/camelcase-matching/">1023.camelcase matching</a></strong></summary>
 
-```
+```cpp
 class Solution {
 public:
     vector<bool> camelMatch(vector<string>& queries, string pattern) {
@@ -442,7 +441,7 @@ public:
 <details>
 <summary><strong><a href = "">677.map sum pairs</a></strong></summary>
 
-```
+```cpp
 class TrieNode {
 public:
     int value;
