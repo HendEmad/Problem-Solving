@@ -257,7 +257,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href="https://leetcode.com/problems/minimum-time-visiting-all-points/description/"><1266. Minimum Time Visiting All Points/a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/minimum-time-visiting-all-points/description/">1266. Minimum Time Visiting All Points</a></strong></summary>
 
 ```cpp
 class Solution {
