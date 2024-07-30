@@ -5,6 +5,7 @@
 class Solution {
 public:
     int n;
+    // Using sliding window approach
     int findMaxSum(vector<int>& arr, int len, int s, int e) {
         int sum = 0, ans = 0;
         for(int i = s; i < s + len; i++)
@@ -59,50 +60,206 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/matrix-diagonal-sum/description/">1572. Matrix Diagonal Sum</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int diagonalSum(vector<vector<int>>& mat) {
+        int n = mat.size();
+        int sum1 = 0, sum2 = 0;
 
+        for(int i = 0; i < n; i++) {
+            sum1 += mat[i][i];
+            sum2 += mat[i][n - i - 1];
+        }
+
+        if(n % 2 != 0) 
+            sum2 -= mat[n / 2][n / 2];
+
+        return sum1 + sum2;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/maximum-population-year/description/">1854. Maximum Population Year</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    // using sweep line algorithm
+    int maximumPopulation(vector<vector<int>>& logs) {
+        int populationChanges[101] = {0};
 
+        for(const auto &log : logs) {
+            int birth = log[0];
+            int death = log[1];
+            populationChanges[birth - 1950] ++;
+            if(death <= 2050) 
+                populationChanges[death - 1950] --;
+        }
+
+        int maxPopulation = 0, currentPopulation = 0, earliestYear = 1950;
+        for(int year = 1950; year <= 2050; year++) {
+            currentPopulation += populationChanges[year - 1950];
+            if(currentPopulation > maxPopulation) {
+                maxPopulation = currentPopulation;
+                earliestYear = year;
+            }
+        }
+
+        return earliestYear;
+    }
+};
+
+// Another solution
+class Solution {
+public:
+    int maximumPopulation(vector<vector<int>>& logs) {
+       map <int, int> populationChanges; // year: population
+
+       for(const auto &log : logs) {
+            int birth = log[0];
+            int death = log[1];
+            populationChanges[birth] ++;
+            populationChanges[death] --;
+       }
+
+       int maxPopulation = 0, currentPopulation = 0, earliestYear = 1950;
+       for(const auto &entry : populationChanges) {
+        currentPopulation += entry.second;
+        if(currentPopulation > maxPopulation) {
+            maxPopulation = currentPopulation;
+            earliestYear = entry.first; 
+        }
+       }
+       return earliestYear;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/description/">1464. Maximum Product of Two Elements in an Array</a></strong></summary>
 
 ```cpp
+// solution 1: time complexity = O(n^2)
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int result = INT_MIN;
+        for(int i = 0; i < nums.size(); i++) {
+            for(int j = i + 1; j < nums.size(); j++) {
+                int ans = (nums[i] - 1) * (nums[j] - 1);
+                result = max(result, ans);
+            }
+        }
+        return result;
+    }
+};
 
+// Solution 2: time complexity = O(n log(n))
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        return (nums[nums.size() - 1] - 1) * (nums[nums.size() - 2] - 1);
+    } 
+};
+
+// Solution 3: O(n)
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int max1 = 0, max2 = 0;
+        for(int num : nums) {
+            if (num > max1) {
+                max2 = max1;
+                max1 = num;
+            }
+            else if(num > max2)
+                max2 = num;
+        }
+        return (max1 - 1) * (max2 - 1);
+    } 
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/best-sightseeing-pair/description/">1014. Best Sightseeing Pair</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int maxScoreSightseeingPair(vector<int>& values) {
+        // part1 = values[i] + i
+        // part2 = values[j] - j
+        int part1 = values[0] + 0;
+        int maxScore = 0;
 
+        for(int j = 1; j < size(values); j++) {
+            maxScore = max(maxScore, part1 + values[j] - j);
+            part1 = max(part1, values[j] + j);
+        }
+
+        return maxScore;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/third-maximum-number/description/">414. Third Maximum Number</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        int max1 = nums[0], max2 = max1, max3 = max1;
+        for(int num : nums) {
+            if(num > max1){
+                max3 = max2;
+                max2 = max1;
+                max1 = num;
+            }
+            else if((num > max2 && num < max1) || max1 == max2) {
+                if(max2 != max1)
+                    max3 = max2;
+                max2 = num;
+            }
+            else if((num > max3 && num < max1 && num < max2) || max3 == max2 || max3 == max1)
+                max3 = num;
+        }
+        
+        if(max1 > max2 && max2 > max3)
+            return max3;
+        else
+            return max1;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/number-of-students-doing-homework-at-a-given-time/description/">1450. Number of Students Doing Homework at a Given Time</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    int busyStudent(vector<int>& startTime, vector<int>& endTime, int queryTime) {
+        int count = 0;
+        for(int i = 0; i < size(startTime); i++) {
+            int start_time = startTime[i];
+            int end_time = endTime[i];
+            if(queryTime >= start_time && queryTime <= end_time)
+                count++;
+        }
+        return count;
+    }
+};
 ```
 </details>
 
