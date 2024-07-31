@@ -264,26 +264,75 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/find-n-unique-integers-sum-up-to-zero/description/">1304. Find N Unique Integers Sum up to Zero</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    vector<int> sumZero(int n) {
+        vector <int> result;
+        if(n % 2 != 0)
+            result.emplace_back(0);
 
+        for(int i = 1; i <= n/2; i++) {
+            result.emplace_back(i);
+            result.emplace_back(-i);
+        }
+
+        return result;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/maximum-number-of-balls-in-a-box/description/">1742. Maximum Number of Balls in a Box</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int sum(int n){
+        int s = 0;
+        while(n > 0){
+            s += (n % 10);
+            n /= 10;
+        }
+        return s;
+    }
 
+    int countBalls(int lowLimit, int highLimit) {
+        vector <int> box(10000, 0);
+        int result = INT_MIN;
+
+        for(int i = lowLimit; i <= highLimit; i++) {
+            int boxNum = sum(i);
+            box[boxNum] ++;
+            result = max(result, box[boxNum]);
+        }
+        return result;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/height-checker/description/">1051. Height Checker</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int heightChecker(vector<int>& heights) {
+        int count = 0;
+        vector <int> expected = heights;
+        sort(expected.begin(), expected.end());
 
+        for(int i = 0; i < heights.size(); i++) {
+            if(heights[i] != expected[i])
+                count++;
+        }
+        return count;
+    }
+};
 ```
 </details>
 
