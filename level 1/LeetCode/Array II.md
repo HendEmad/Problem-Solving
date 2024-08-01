@@ -337,23 +337,76 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/spiral-matrix-ii/description/">59. Spiral Matrix II</a></strong></summary>
 
 ```cpp
+// O(n^2) solution
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        int total = n * n, cell_num = 0;
+        int first_row = 0, last_row = n - 1, first_col = 0, last_col = n - 1;
+        vector <vector <int>> mat(n, vector<int>(n, 0));
 
+        while(cell_num < total) {
+            // fill the first row from left to right
+            for(int i = first_col; cell_num < total && i <= last_col; i++) 
+                mat[first_row][i] = ++cell_num;
+            first_row ++;
+
+            // fill the last column from up to down
+            for(int i = first_row; cell_num < total && i <= last_row; i++) 
+                mat[i][last_col] = ++cell_num;
+            last_col --;
+
+            // fill the last row from left to right
+            for(int i = last_col; cell_num < total && i >= first_col; i--) 
+                mat[last_row][i] = ++cell_num;
+            last_row --;
+
+            // fill the first column from down to up
+            for(int i = last_row; cell_num < total && i >= first_row; i--)
+                mat[i][first_col] = ++cell_num;
+            first_col ++;
+        }
+        return mat;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/description/">1700. Number of Students Unable to Eat Lunch</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int countStudents(vector<int>& students, vector<int>& sandwiches) {
+        queue <int> students_queue;
+        for(int i = 0; i < size(students); i++) 
+            students_queue.push(students[i]);
 
+        int i = 0, cnt = 0;
+        while(size(students_queue) > 0 and cnt != size(students_queue)) {
+            if(students_queue.front() == sandwiches[i]) {
+                cnt = 0;
+                i ++;
+                students_queue.pop();
+            }
+            else {
+                students_queue.push(students_queue.front());
+                students_queue.pop();
+                cnt ++;
+            }
+        }
+        return size(students_queue);
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/available-captures-for-rook/description/">999. Available Captures for Rook</a></strong></summary>
 
 ```cpp
 
