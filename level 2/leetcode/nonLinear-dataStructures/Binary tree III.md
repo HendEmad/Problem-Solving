@@ -443,3 +443,105 @@ public:
 };
 ```
 </details>
+
+<details>
+<summary><strong><a href = "https://leetcode.com/problems/n-th-tribonacci-number/description/">1137. N-th Tribonacci Number</a></strong></summary>
+
+```cpp
+class Solution {
+public:
+    int tribonacci(int n) {
+        if(n == 0)
+            return 0;
+        else if(n == 1 || n == 2)
+            return 1;
+
+        int T0 = 0, T1 = 1, T2 = 1;
+        int current;
+
+        for(int i = 3; i <= n; i++){
+            current = T0 + T1 + T2;
+            T0 = T1;
+            T1 = T2;
+            T2 = current;
+        }
+        return current;
+    }
+};
+```
+</details>
+
+<details>
+<summary><strong><a href = "https://leetcode.com/problems/all-possible-full-binary-trees/description/">894. All Possible Full Binary Trees</a></strong></summary>
+
+```cpp
+// Brute force solution 
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode*> allPossibleFBT(int n) {
+        if(n == 0)
+            return {};
+        if(n == 1)
+            return {new TreeNode(0)};
+        
+        vector <TreeNode*> res;
+        for(int i = 1; i < n; i+= 2) {
+            vector <TreeNode*> left_subtree = allPossibleFBT(i);
+            vector <TreeNode*> right_subtree = allPossibleFBT(n - i - 1);
+
+            for(auto left : left_subtree) {
+                for(auto right : right_subtree) {
+                    TreeNode* root = new TreeNode(0);
+                    root -> left = left;
+                    root -> right = right;
+                    res.emplace_back(root);
+                }
+            }
+        }
+        return res;
+    }
+};
+
+// Optimized solution using memoization 
+class Solution {
+public:
+    vector<TreeNode*> allPossibleFBT(int n) {
+        unordered_map<int, vector<TreeNode*>> memo;
+        if(memo.find(n) != memo.end()) 
+            return memo[n];
+
+        if(n == 0)
+            return {};
+        if(n == 1)
+            return {new TreeNode(0)};
+        
+        vector <TreeNode*> res;
+        for(int i = 1; i < n; i+= 2) {
+            vector <TreeNode*> left_subtree = allPossibleFBT(i);
+            vector <TreeNode*> right_subtree = allPossibleFBT(n - i - 1);
+
+            for(auto left : left_subtree) {
+                for(auto right : right_subtree) {
+                    TreeNode* root = new TreeNode(0);
+                    root -> left = left;
+                    root -> right = right;
+                    res.emplace_back(root);
+                }
+            }
+        }
+        return res;
+    }
+};
+```
+</details>
