@@ -171,7 +171,35 @@ public:
 <summary><strong><a href = "https://leetcode.com/problems/top-k-frequent-words/">top k frequent words</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        unordered_map<string, int> map;
+        for(int i = 0; i < words.size(); i++) {
+            map[words[i]]++;
+        }
 
+        auto cmp = [] (const pair<int, string>& a, const pair<int, string>&b) {
+            if(a.first == b.first) {
+                return a.second > b.second;
+            }
+            return a.first < b.first;
+        };
+
+        priority_queue<pair<int, string>, vector<pair<int, string>>, decltype(cmp)> pq(cmp);
+
+        for(const auto& [word, freq] : map) {
+            pq.push({freq, word});  
+        }
+
+        vector <string> res;
+        for(int i = 0; i < k && !pq.empty(); i++) {
+            res.emplace_back(pq.top().second);
+            pq.pop();
+        }
+        return res;
+    }
+};
 ```
 </details>
 
@@ -179,7 +207,35 @@ public:
 <summary><strong><a href = "https://leetcode.com/problems/hand-of-straights/">hand of straights</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    bool isNStraightHand(vector<int>& hand, int groupSize) {
+        int handSize = hand.size();
 
+        if (handSize % groupSize != 0) {
+            return false;
+        }
+
+        map<int, int> cardCount;
+        for (int i = 0; i < handSize; i++) {
+            cardCount[hand[i]]++;
+        }
+
+        while (!cardCount.empty()) {
+            int currentCard = cardCount.begin()->first;
+            for (int i = 0; i < groupSize; i++) {
+                if (cardCount[currentCard + i] == 0) {
+                    return false;
+                }
+                cardCount[currentCard + i]--;
+                if (cardCount[currentCard + i] < 1) {
+                    cardCount.erase(currentCard + i);
+                }
+            }
+        }
+        return true;
+    }
+};
 ```
 </details>
 
@@ -187,7 +243,34 @@ public:
 <summary><strong><a href = "https://leetcode.com/problems/my-calendar-ii/">my calendar ii</a></strong></summary>
 
 ```cpp
+class MyCalendarTwo {
+public:
+    MyCalendarTwo() {
+        
+    }
+    map<int, int> calender;
+    bool book(int start, int end) {
+        calender[start]++;
+        calender[end]--;
+        int sum = 0;
 
+        for(auto &c : calender) {
+            sum += c.second;
+            if(sum >= 3) {
+                calender[start]--;
+                calender[end]++;
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+/**
+ * Your MyCalendarTwo object will be instantiated and called as such:
+ * MyCalendarTwo* obj = new MyCalendarTwo();
+ * bool param_1 = obj->book(start,end);
+ */
 ```
 </details>
 
@@ -195,7 +278,50 @@ public:
 <summary><strong><a href = "https://leetcode.com/problems/exam-room/">exam room</a></strong></summary>
 
 ```cpp
+class ExamRoom {
+private:
+    int n;
+    set<int> seats;
 
+public:
+    ExamRoom(int n) : n(n){}
+    
+    int seat() {
+        int student = 0;
+
+        if(!seats.empty()) {
+            int maxDist = *seats.begin();
+
+            auto prev = seats.begin();
+            for(auto it = next(seats.begin()); it != seats.end(); it++) {
+                int dist = (*it - *prev) / 2;
+                if(dist > maxDist) {
+                    maxDist = dist;
+                    student = *prev + dist;
+                }
+                prev = it;
+            }
+
+            if(n - 1 - *seats.rbegin() > maxDist) {
+                student = n - 1;
+            }
+        }
+
+        seats.insert(student);
+        return student;
+    }
+    
+    void leave(int p) {
+        seats.erase(p);
+    }
+};
+
+/**
+ * Your ExamRoom object will be instantiated and called as such:
+ * ExamRoom* obj = new ExamRoom(n);
+ * int param_1 = obj->seat();
+ * obj->leave(p);
+ */
 ```
 </details>
 
@@ -203,15 +329,42 @@ public:
 <summary><strong><a href = "https://leetcode.com/problems/alert-using-same-key-card-three-or-more-times-in-a-one-hour-period/">	alert using same key card three or more times in a one hour period</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int timeToMinutes(const string& time) {
+        int hours = stoi(time.substr(0, 2));
+        int minutes = stoi(time.substr(3, 2));
+        return hours * 60 + minutes;
+    }
 
-```
-</details>
+    vector<string> alertNames(vector<string>& keyName, vector<string>& keyTime) {
+        map<string, vector<int>> nameToTimes;
 
-<details>
-<summary><strong><a href = "https://leetcode.com/problems/number-of-distinct-substrings-in-a-string/">	number of distinct substrings in a string</a></strong></summary>
+        for (int i = 0; i < keyName.size(); ++i) {
+            nameToTimes[keyName[i]].push_back(timeToMinutes(keyTime[i]));
+        }
 
-```cpp
+        set<string> alertedNames;
 
+        for (auto& entry : nameToTimes) {
+            string name = entry.first;
+            vector<int> times = entry.second;
+
+            sort(times.begin(), times.end());
+
+            if(times.size() < 3) continue;
+            
+            for (int i = 0; i < times.size() - 2; ++i) {
+                if (times[i + 2] - times[i] <= 60) {
+                    alertedNames.insert(name);
+                    break;  
+                }
+            }
+        }
+
+        return vector<string>(alertedNames.begin(), alertedNames.end());
+    }
+};
 ```
 </details>
 
@@ -219,6 +372,53 @@ public:
 <summary><strong><a href = "https://leetcode.com/problems/single-threaded-cpu/">single threaded cpu</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    vector<int> getOrder(vector<vector<int>>& tasks) {
+        int n = tasks.size();
 
+        vector<int> enqueueTime(n), processingTime(n), index(n);
+        for(int i = 0; i < n; i++) {
+            enqueueTime[i] = tasks[i][0];
+            processingTime[i] = tasks[i][1];
+            index[i] = i;
+        }
+
+        vector<int> sortedIndices(n);
+        iota(sortedIndices.begin(), sortedIndices.end(), 0);
+        sort(sortedIndices.begin(), sortedIndices.end(), [&enqueueTime](int a, int b) {
+            return enqueueTime[a] < enqueueTime[b];
+        });
+
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> availableTasks;
+
+        vector<int> result;
+        long long currentTime = 0;
+        int idx = 0;
+        int taskCount = 0;
+
+        while(taskCount < n) {
+            while (idx < n && enqueueTime[sortedIndices[idx]] <= currentTime) {
+                availableTasks.push({processingTime[sortedIndices[idx]], sortedIndices[idx]});
+                ++idx;
+            }
+
+            if (availableTasks.empty()) {
+                if (idx < n) {
+                    currentTime = enqueueTime[sortedIndices[idx]];
+                }
+                continue;
+            }
+
+            auto [procTime, taskIndex] = availableTasks.top();
+            availableTasks.pop();
+            
+            result.push_back(taskIndex);
+            currentTime += procTime;
+            ++taskCount;
+        }
+        return result;
+    }
+};
 ```
 </details>
