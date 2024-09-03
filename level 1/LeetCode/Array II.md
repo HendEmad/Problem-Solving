@@ -409,30 +409,50 @@ public:
   <summary><strong><a href="https://leetcode.com/problems/available-captures-for-rook/description/">999. Available Captures for Rook</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+        int mini = INT_MAX;
+        vector <vector <int>> res;
+        sort(arr.begin(), arr.end());
 
+        for(int i = 1; i < arr.size(); i++) {
+            int diff = arr[i] - arr[i - 1];
+            if (diff < mini) {
+                mini = diff;
+                res.clear();
+            }
+            if(diff == mini) {
+                res.push_back({arr[i-1], arr[i]});    
+            }
+        }
+        return res;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=""></a></strong></summary>
+  <summary><strong><a href="https://leetcode.com/problems/mean-of-array-after-removing-some-elements/description/">1619. Mean of Array After Removing Some Elements</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    double trimMean(vector<int>& arr) {
+        int min_max_to_remove = 0.05 * arr.size();
+        sort(arr.begin(), arr.end());
 
-```
-</details>
+        arr.erase(arr.begin(), arr.begin() + min_max_to_remove);
+        arr.erase(arr.end() - min_max_to_remove, arr.end());
 
-<details>
-  <summary><strong><a href=""></a></strong></summary>
+        int sum = 0;
+        for(int i = 0; i < arr.size(); i++) {
+            sum += arr[i];
+        }
 
-```cpp
-
-```
-</details>
-
-<details>
-  <summary><strong><a href=""></a></strong></summary>
-
-```cpp
-
+        double mean = double(sum) / arr.size();
+        return mean;
+    }
+};
 ```
 </details>
