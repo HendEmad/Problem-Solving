@@ -213,15 +213,83 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/first-bad-version/>first bad version</a></strong></summary>
 
 ```cpp
+// time = 6 minutes
+// linear time/ greedy approach O(n)
+// The API isBadVersion is defined for you.
+// bool isBadVersion(int version);
 
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        int bad_version = 0;
+        for(int i = 1; i <= n; i++) {
+            if(isBadVersion(i)){
+                bad_version = i;
+                break;
+            }
+        }
+        return bad_version;
+    }
+};
+
+// Binary search O(log n)
+class Solution {
+public:
+    int firstBadVersion(long n) {
+        int low = 1;
+        long high = n;
+        int res;
+        
+        while(low < high) {
+            int mid = (low + high) / 2;
+            if(isBadVersion(mid))
+                high = mid;
+            else
+                low = mid + 1;
+        }
+        return low;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/egg-drop-with-2-eggs-and-n-floors/>egg drop with 2 eggs and n floors</a></strong></summary>
 
 ```cpp
+//linear time O(n)
+class Solution {
+public:
+    int twoEggDrop(int n) {
+        int res = 0;
+        while(n > 0) {
+            res ++;
+            n -= res;
+        }
+        return res;
+    }
+};
 
+// O(log n) solution
+class Solution {
+public:
+    int twoEggDrop(int n) {
+        int low = 1;
+        int high = n;
+
+        while(low < high) {
+            int mid = (low + high) / 2;
+            // floors number covered must be <= n
+            // no.of drops = 1 + 2 + 3 + 4 + ....... + k
+            int floors_num = (mid * (mid + 1)) / 2;
+            if(floors_num >= n)
+                high = mid;
+            else
+                low = mid + 1;
+        }
+        return low;
+    }
+};
 ```
 </details>
 
