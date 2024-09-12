@@ -257,6 +257,7 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/egg-drop-with-2-eggs-and-n-floors/>egg drop with 2 eggs and n floors</a></strong></summary>
 
 ```cpp
+// time: 15 minutes
 //linear time O(n)
 class Solution {
 public:
