@@ -507,18 +507,63 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/single-element-in-a-sorted-array/description/>Single Element in a Sorted Array</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int singleNonDuplicate(vector<int>& nums) {
+        int low = 0, high = size(nums) - 1;
 
+        while(low < high) {
+            int mid = (low + high) / 2;
+            if(mid % 2 == 0) {
+                if(nums[mid] == nums[mid + 1])
+                    low = mid + 2;
+                else
+                    high = mid;
+            } else {
+                if(nums[mid] == nums[mid - 1]) 
+                    low = mid + 1;
+                else
+                    high = mid;
+            }
+        }
+        return nums[low];
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/4sum-ii/description/>4Sum II</a></strong></summary>
 
 ```cpp
+// O(n^2) complexity
+class Solution {
+public:
+    int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
+        // nums1[i] + nums2[i] + nums3[i] + nums4[i] = 0 means
+        // nums1[i] + num2[i] = -(nums3[i] + nums3[i])
 
+        unordered_map<int, int> map;
+        int n = size(nums1);
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                map[nums3[i] + nums4[j]]++;
+            }
+        }
+
+        int cnt = 0; 
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                cnt += map[0 - (nums1[i] + nums2[j])];
+            }
+        }
+        return cnt;
+    }
+};
 ```
 </details>
 
