@@ -295,34 +295,214 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/maximum-nesting-depth-of-two-valid-parentheses-strings/>maximum nesting depth of two valid parentheses strings</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    vector<int> maxDepthAfterSplit(string seq) {
+        int depth = 0;
+        int n = seq.size();
+        vector <int> res (n, 0);
+        for(int i = 0; i < n; i++) {
+            if(seq[i] == '(') {
+                depth++;
+                res[i] = depth % 2;
+            } 
+            else {
+                res[i] = depth % 2;
+                depth--;
+            }
+        }
+        return res;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/find-positive-integer-solution-for-a-given-equation/description/>Find Positive Integer Solution for a Given Equation</a></strong></summary>
 
 ```cpp
+// Two pointers approach O(n)
+class Solution {
+public:
+    vector<vector<int>> findSolution(CustomFunction& customfunction, int z) {
+        vector<vector <int>> res;
+        int x = 1, y = 1000;
 
+        while(x <= 1000 && y >= 1) {
+            int value = customfunction.f(x, y);
+            if(value == z) {
+                res.push_back({x, y});
+                x++;
+                y--;
+            }
+            else {
+                if(value < z) 
+                    x++;
+                else
+                    y--;
+            }
+        }
+        return res;
+    }
+};
+
+// Bianry search O(n*log n)
+class Solution {
+public:
+    vector<vector<int>> findSolution(CustomFunction& customfunction, int z) {
+        vector<vector <int>> res;
+        int x = 1;
+        
+        while(x <= 1000 ) {
+            int low = 1, high = 1000;
+            // apply BS for y
+            while(low <= high) {
+                int mid = (low + high) / 2;
+                int value = customfunction.f(x, mid);
+
+                if(value == z) {
+                    res.push_back({x, mid});
+                    break;
+                }
+                else if(value < z)
+                    low = mid + 1;
+                else
+                    high = mid - 1;
+            }
+            x++;
+        }
+        return res;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/compare-strings-by-frequency-of-the-smallest-character/description/>compare strings by frequency of the smallest character</a></strong></summary>
 
 ```cpp
+// Brute force approach, O(n^2)
+class Solution {
+public:
+    int calc_freq(const string &s) {
+        char smallest = 'z' + 1;
+        int cnt = 0;
+        for(char c : s) {
+            if(c < smallest) {
+                smallest = c;
+                cnt = 1;
+            }
+            else if(c == smallest)
+                cnt++;
+        }
+        return cnt;
+    }
 
+    vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) {
+        int n = words.size();
+        vector <int> words_freq(n);
+        for(int i = 0; i < n; i++) {
+            words_freq[i] = calc_freq(words[i]);
+        }
+
+        vector <int> res;
+        for(const string& query : queries) {
+            int query_freq = calc_freq(query);
+            int cnt = 0;
+
+            for(int freq : words_freq) {
+                if(query_freq < freq) 
+                    cnt++;
+            }
+            res.push_back(cnt);
+        }
+        return res;
+    }
+};
+
+// Binary Search approach, O(n*log n)
+class Solution {
+public:
+    int calc_freq(const string &s) {
+        char smallest = 'z' + 1;
+        int cnt = 0;
+        for(char c : s) {
+            if(c < smallest) {
+                smallest = c;
+                cnt = 1;
+            }
+            else if(c == smallest)
+                cnt++;
+        }
+        return cnt;
+    }
+
+    vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) {
+        int n = words.size();
+        vector <int> word_freqs(n);
+        for(int i = 0; i < n; i++) {
+            word_freqs[i] = calc_freq(words[i]);
+        }
+
+        sort(word_freqs.begin(), word_freqs.end());
+        
+        vector <int> res;
+        for(const string& query : queries) {
+            int query_freq = calc_freq(query);
+            auto it = upper_bound(word_freqs.begin(), word_freqs.end(), query_freq);
+            int cnt = word_freqs.end() - it;
+
+            res.push_back(cnt);
+        }
+        return res;
+    }
+};
 ```
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/description/>Capacity To Ship Packages Within D Days</a></strong></summary>
 
 ```cpp
+// Binary search approach O(n*log n)
+class Solution {
+public:
+    bool can_ship(const vector<int>& weights, int capacity, int days) {
+        int curr_weight = 0;  // weight of the day
+        int required_days = 1;  // at least one day
 
+        for(int weight : weights) {
+            if(curr_weight + weight > capacity) {
+                required_days ++;
+                curr_weight = weight;              
+                if(required_days > days)
+                    return false;                                                         
+            } else {
+                curr_weight += weight;
+            }
+        }
+        return true;
+    }
+
+    int shipWithinDays(vector<int>& weights, int days) {
+        // min_capacity = low
+        // max_capacity = high
+        int min_capacity = *max_element(weights.begin(), weights.end());  // max weight of each package 
+        int max_capacity = accumulate(weights.begin(), weights.end(), 0);  // sum of all weights
+
+        while(min_capacity < max_capacity) {
+            int mid = (min_capacity + max_capacity) / 2;
+            if(can_ship(weights, mid, days))    
+                max_capacity = mid;
+            else
+                min_capacity = mid + 1;  // increase capacity
+        }
+        return min_capacity;
+    }
+};
 ```
 </details>
 
