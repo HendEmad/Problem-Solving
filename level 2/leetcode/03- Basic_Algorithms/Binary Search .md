@@ -568,17 +568,39 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/time-based-key-value-store/>time based key value store</a></strong></summary>
 
 ```cpp
+class TimeMap {
+public:
+    unordered_map<string, vector<pair<int, string>>> store;
+    TimeMap() {
+    }
+    
+    void set(string key, string value, int timestamp) {
+        store[key].push_back({timestamp, value});
+    }
+    
+    string get(string key, int timestamp) {
+        if (store.find(key) == store.end()) 
+            return "";  
 
-```
-</details>
+        const auto& values = store[key];
+        int left = 0, right = values.size() - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (values[mid].first <= timestamp) 
+                left = mid + 1;
+            else 
+                right = mid - 1;
+        }
 
-<details>
-  <summary><strong><a href=></a></strong></summary>
+        if (right < 0) {
+            return "";
+        }
 
-```cpp
-
+        return values[right].second;
+    }
+};
 ```
 </details>
