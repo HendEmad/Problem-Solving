@@ -202,7 +202,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/minimum-changes-to-make-alternating-binary-string/>minimum changes to make alternating binary string</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -227,7 +227,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/can-place-flowers/>can place flowers</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -255,7 +255,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/maximize-sum-of-array-after-k-negations/>maximize sum of array after k negations</a></strong></summary>
 
 ```cpp
 #include <vector>
@@ -289,7 +289,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/lemonade-change/>lemonade change</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -323,7 +323,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/assign-cookies/>assign cookies</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -343,7 +343,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/latest-time-by-replacing-hidden-digits/>latest time by replacing hidden digits</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -360,7 +360,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/check-if-binary-string-has-at-most-one-segment-of-ones/>check if binary string has at most one segment of ones</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -373,7 +373,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/walking-robot-simulation/>walking robot simulation</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -416,7 +416,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/minimum-number-of-people-to-teach/>minimum number of people to teach</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -465,7 +465,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product/>maximum length of subarray with positive product</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -496,7 +496,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/can-i-win/>can i win</a></strong></summary>
 
 ```cpp
 #include <vector>
@@ -548,7 +548,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/two-city-scheduling/>two city scheduling</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -575,7 +575,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/>best time to buy and sell stock with transaction fee</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -597,7 +597,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers/>divide array in sets of k consecutive numbers</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -629,7 +629,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/determine-if-two-strings-are-close/>determine if two strings are close</a></strong></summary>
 
 ```cpp
 class Solution {
@@ -660,7 +660,7 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/>smallest subsequence of distinct characters</a></strong></summary>
 
 ```cpp
 class Solution {
