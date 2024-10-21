@@ -120,7 +120,23 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/find-valid-matrix-given-row-and-column-sums/>find valid matrix given row and column sums</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    vector<vector<int>> restoreMatrix(vector<int>& rowSum, vector<int>& colSum) {
+        int m = rowSum.size(), n = colSum.size();
+        vector<vector<int>> matrix(m, vector<int>(n, 0));
+        
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                matrix[i][j] = min(rowSum[i], colSum[j]);
+                rowSum[i] -= matrix[i][j];
+                colSum[j] -= matrix[i][j];
+            }
+        }
+        
+        return matrix;
+    }
+};
 ```
 </details>
 
@@ -128,7 +144,22 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/>minimum add to make parentheses valid</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        int open = 0, close = 0;
+        for (char c : s) 
+            if (c == '(') 
+                open++;
+            else 
+                if (open > 0) 
+                    open--;
+                else 
+                    close++;
+                    
+        return open + close;
+    }
+};
 ```
 </details>
 
@@ -136,7 +167,30 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/score-after-flipping-matrix/>score after flipping matrix</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int matrixScore(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        int score = 0;
 
+        for (int i = 0; i < m; ++i) 
+            if (grid[i][0] == 0) 
+                for (int j = 0; j < n; ++j) 
+                    grid[i][j] ^= 1;
+
+        for (int j = 0; j < n; ++j) {
+            int ones = 0;
+            for (int i = 0; i < m; ++i) 
+                if (grid[i][j] == 1) 
+                    ones++;
+            
+            ones = max(ones, m - ones);
+            score += ones * (1 << (n - j - 1));
+        }
+
+        return score;
+    }
+};
 ```
 </details>
 
@@ -144,7 +198,23 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/minimum-number-of-operations-to-reinitialize-a-permutation/>minimum number of operations to reinitialize a permutation</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    int reinitializePermutation(int n) {
+        int steps = 0;
+        int i = 1;
+        
+        while (true) {
+            i = (i % 2 == 0) ? i / 2 : n / 2 + (i - 1) / 2;
+            steps++;
+            
+            if (i == 1) 
+                break;
+        }
+        
+        return steps;
+    }
+};
 ```
 </details>
 
