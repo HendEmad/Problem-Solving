@@ -202,11 +202,10 @@ class Solution {
 public:
     int reinitializePermutation(int n) {
         int steps = 0;
-        int i = 1;
-        
+        int i = 1;        
         while (true) {
             i = (i % 2 == 0) ? i / 2 : n / 2 + (i - 1) / 2;
-            steps++;
+            steps+9+;
             
             if (i == 1) 
                 break;
@@ -222,15 +221,21 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/queue-reconstruction-by-height/>queue reconstruction by height</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
+        sort(people.begin(), people.end(), [](vector<int>& a, vector<int>& b) {
+            return a[0] > b[0] || (a[0] == b[0] && a[1] < b[1]);
+        });
 
-```
-</details>
+        vector<vector<int>> queue;
+        for (auto& p : people) {
+            queue.insert(queue.begin() + p[1], p);
+        }
 
-<details>
-  <summary><strong><a href=https://leetcode.com/problems/count-pairs-of-equal-substrings-with-minimum-difference/>count pairs of equal substrings with minimum difference</a></strong></summary>
-
-```cpp
-
+        return queue;
+    }
+};
 ```
 </details>
 
@@ -238,7 +243,30 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/reduce-array-size-to-the-half/>reduce array size to the half</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int minSetSize(vector<int>& arr) {
+        unordered_map<int, int> freq;
+        for (int num : arr) 
+            freq[num]++;
 
+        vector<int> counts;
+        for (auto& [num, count] : freq) 
+            counts.push_back(count);
+
+        sort(counts.rbegin(), counts.rend());
+
+        int removed = 0, sets = 0, half = arr.size() / 2;
+        for (int count : counts) {
+            removed += count;
+            sets++;
+            if (removed >= half) 
+                break;
+        }
+
+        return sets;
+    }
+};
 ```
 </details>
 
@@ -246,23 +274,24 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/check-if-a-string-can-break-another-string/>check if a string can break another string</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    bool checkIfCanBreak(string s1, string s2) {
+        sort(s1.begin(), s1.end());
+        sort(s2.begin(), s2.end());
 
-```
-</details>
+        bool s1BreaksS2 = true, s2BreaksS1 = true;
+        for (int i = 0; i < s1.size(); i++) {
+            if (s1[i] < s2[i]) 
+                s1BreaksS2 = false;
+            
+            if (s2[i] < s1[i]) 
+                s2BreaksS1 = false;
+        }
 
-<details>
-  <summary><strong><a href=https://leetcode.com/problems/minimum-cost-to-connect-sticks/>minimum cost to connect sticks</a></strong></summary>
-
-```cpp
-
-```
-</details>
-
-<details>
-  <summary><strong><a href=https://leetcode.com/problems/put-boxes-into-the-warehouse-i/>put boxes into the warehouse i</a></strong></summary>
-
-```cpp
-
+        return s1BreaksS2 || s2BreaksS1;
+    }
+};
 ```
 </details>
 
@@ -270,7 +299,21 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/smallest-string-with-a-given-numeric-value/>smallest string with a given numeric value</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    string getSmallestString(int n, int k) {
+        string result(n, 'a');
+        k -= n;
 
+        for (int i = n - 1; i >= 0 && k > 0; --i) {
+            int add = min(25, k);
+            result[i] += add;
+            k -= add;
+        }
+
+        return result;
+    }
+};
 ```
 </details>
 
@@ -278,7 +321,29 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/minimum-numbers-of-function-calls-to-make-target-array/>minimum numbers of function calls to make target array</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int minOperations(vector<int>& nums) {
+        int operations = 0, maxDoubles = 0;
+        
+        for (int num : nums) {
+            int doubles = 0;
+            while (num > 0) {
+                if (num % 2 == 1) {
+                    operations++;
+                    num--;
+                }
+                if (num > 0) {
+                    num /= 2;
+                    doubles++;
+                }
+            }
+            maxDoubles = max(maxDoubles, doubles);
+        }
 
+        return operations + maxDoubles;
+    }
+};
 ```
 </details>
 
@@ -286,7 +351,15 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/minimum-elements-to-add-to-form-a-given-sum/>minimum elements to add to form a given sum</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    int minElements(vector<int>& nums, int limit, long long goal) {
+        long long sum = accumulate(nums.begin(), nums.end(), 0LL);
+        long long diff = abs(goal - sum);
+        
+        return (diff + limit - 1) / limit;
+    }
+};
 ```
 </details>
 
@@ -294,7 +367,33 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/remove-duplicate-letters/>remove duplicate letters</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    string removeDuplicateLetters(string s) {
+        vector<int> freq(26, 0);
+        vector<bool> inResult(26, false);
+        string result = "";
 
+        for (char c : s) 
+            freq[c - 'a']++;
+
+        for (char c : s) {
+            freq[c - 'a']--;
+            if (inResult[c - 'a']) 
+                continue;
+
+            while (!result.empty() && result.back() > c && freq[result.back() - 'a'] > 0) {
+                inResult[result.back() - 'a'] = false;
+                result.pop_back();
+            }
+
+            result.push_back(c);
+            inResult[c - 'a'] = true;
+        }
+
+        return result;
+    }
+};
 ```
 </details>
 
