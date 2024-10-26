@@ -401,7 +401,34 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/dota2-senate/>dota2 senate</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    string predictPartyVictory(string senate) {
+        queue<int> radiant, dire;
+        int n = senate.size();
+        
+        for (int i = 0; i < n; ++i) {
+            if (senate[i] == 'R')
+                radiant.push(i);
+            else
+                dire.push(i);
+        }
+        
+        while (!radiant.empty() && !dire.empty()) {
+            int r = radiant.front();
+            int d = dire.front();
+            radiant.pop();
+            dire.pop();
+            
+            if (r < d)
+                radiant.push(r + n);
+            else
+                dire.push(d + n);
+        }
+        
+        return radiant.empty() ? "Dire" : "Radiant";
+    }
+};
 ```
 </details>
 
@@ -409,7 +436,35 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/string-without-aaa-or-bbb/>string without aaa or bbb</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    string strWithout3a3b(int a, int b) {
+        string result;
+        
+        while (a > 0 || b > 0) {
+            bool writeA = false;
+            int len = result.length();
+            
+            if (len >= 2 && result[len - 1] == result[len - 2]) {
+                if (result[len - 1] == 'b')
+                    writeA = true;
+            } else {
+                if (a >= b)
+                    writeA = true;
+            }
+            
+            if (writeA) {
+                result += 'a';
+                --a;
+            } else {
+                result += 'b';
+                --b;
+            }
+        }
+        
+        return result;
+    }
+};
 ```
 </details>
 
@@ -417,15 +472,26 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/form-array-by-concatenating-subarrays-of-another-array/>form array by concatenating subarrays of another array</a></strong></summary>
 
 ```cpp
-
-```
-</details>
-
-<details>
-  <summary><strong><a href=https://leetcode.com/problems/4-keys-keyboard/>4 keys keyboard</a></strong></summary>
-
-```cpp
-
+class Solution {
+public:
+    bool canChoose(vector<vector<int>>& groups, vector<int>& nums) {
+        int idx = 0;
+        for (const auto& group : groups) {
+            bool found = false;
+            while (idx + group.size() <= nums.size()) {
+                if (equal(group.begin(), group.end(), nums.begin() + idx)) {
+                    found = true;
+                    idx += group.size();
+                    break;
+                }
+                ++idx;
+            }
+            if (!found) 
+                return false;
+        }
+        return true;
+    }
+};
 ```
 </details>
 
@@ -433,7 +499,22 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/maximum-absolute-sum-of-any-subarray/>maximum absolute sum of any subarray</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    int maxAbsoluteSum(vector<int>& nums) {
+        int maxSum = 0, minSum = 0, currMax = 0, currMin = 0;
+        
+        for (int num : nums) {
+            currMax = max(num, currMax + num);
+            maxSum = max(maxSum, currMax);
+            
+            currMin = min(num, currMin + num);
+            minSum = min(minSum, currMin);
+        }
+        
+        return max(maxSum, abs(minSum));
+    }
+};
 ```
 </details>
 
@@ -441,7 +522,29 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/divide-two-integers/>divide two integers</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        if (dividend == INT_MIN && divisor == -1) 
+            return INT_MAX;
+        
+        long long dvd = abs((long long)dividend);
+        long long dvs = abs((long long)divisor);
+        long long result = 0;
+        
+        while (dvd >= dvs) {
+            long long temp = dvs, multiple = 1;
+            while (dvd >= (temp << 1)) {
+                temp <<= 1;
+                multiple <<= 1;
+            }
+            dvd -= temp;
+            result += multiple;
+        }
+        
+        return (dividend > 0) == (divisor > 0) ? result : -result;
+    }
+};
 ```
 </details>
 
@@ -449,14 +552,27 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/koko-eating-bananas/>koko eating bananas</a></strong></summary>
 
 ```cpp
-
-```
-</details>
-
-<details>
-  <summary><strong><a href=https://leetcode.com/problems/shortest-distance-to-target-color/>shortest distance to target color</a></strong></summary>
-
-```cpp
-
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int left = 1, right = *max_element(piles.begin(), piles.end());
+        
+        while (left < right) {
+            int k = left + (right - left) / 2;
+            int hours = 0;
+            
+            for (int pile : piles) 
+                hours += (pile + k - 1) / k;
+            
+            
+            if (hours <= h) 
+                right = k;
+            else 
+                left = k + 1;
+        }
+        
+        return left;
+    }
+};
 ```
 </details>
