@@ -6,9 +6,9 @@ class Solution {
 private:
     void dfs(vector<vector<int>>& grid, int i, int j, unordered_set<int>& island) {
         int m = grid.size(), n = grid[0].size();
-        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0) {
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0) 
             return;
-        }
+        
         island.insert(i * n + j);
         grid[i][j] = 0;
         dfs(grid, i + 1, j, island);
@@ -40,13 +40,11 @@ public:
                     }
                     
                     // Increment count if it's a sub-island
-                    if (isSubIsland) {
+                    if (isSubIsland) 
                         count++;
-                    }
                 }
             }
         }
-        
         return count;
     }
 };
@@ -73,9 +71,9 @@ public:
     }
     
     int find(int x) {
-        if (x != parent[x]) {
+        if (x != parent[x]) 
             parent[x] = find(parent[x]);
-        }
+        
         return parent[x];
     }
     
@@ -87,10 +85,12 @@ public:
             if (rank[rootX] < rank[rootY]) {
                 parent[rootX] = rootY;
                 components[rootY] += components[rootX];
-            } else if (rank[rootX] > rank[rootY]) {
+            } 
+            else if (rank[rootX] > rank[rootY]) {
                 parent[rootY] = rootX;
                 components[rootX] += components[rootY];
-            } else {
+            } 
+            else {
                 parent[rootY] = rootX;
                 rank[rootX]++;
                 components[rootX] += components[rootY];
@@ -124,11 +124,10 @@ public:
         
         // Kruskal's algorithm to find MST
         vector<pair<int, pair<int, int>>> edges;
-        for (int i = 0; i < n; ++i) {
-            for (int j = i + 1; j < n; ++j) {
+        for (int i = 0; i < n; ++i) 
+            for (int j = i + 1; j < n; ++j) 
                 edges.push_back({dist[i][j], {i, j}});
-            }
-        }
+            
         sort(edges.begin(), edges.end());
         
         UnionFind uf(n);
@@ -141,7 +140,8 @@ public:
                 uf.unite(u, v);
                 minCost += weight;
                 numEdges++;
-                if (numEdges == n - 1) break; // MST has n - 1 edges
+                if (numEdges == n - 1) 
+                    break; // MST has n - 1 edges
             }
         }
         
@@ -176,9 +176,9 @@ private:
     int n;
     
     void build(vector<int>& nums, int v, int tl, int tr) {
-        if (tl == tr) {
+        if (tl == tr) 
             st[v] = nums[tl];
-        } else {
+        else {
             int tm = tl + (tr - tl) / 2;
             build(nums, 2 * v + 1, tl, tm);
             build(nums, 2 * v + 2, tm + 1, tr);
@@ -191,18 +191,21 @@ private:
             st[v] = val;
         } else {
             int tm = tl + (tr - tl) / 2;
-            if (index <= tm) {
+            if (index <= tm) 
                 update(2 * v + 1, tl, tm, index, val);
-            } else {
+            else 
                 update(2 * v + 2, tm + 1, tr, index, val);
-            }
+            
             st[v] = st[2 * v + 1] + st[2 * v + 2];
         }
     }
     
     int sumRange(int v, int tl, int tr, int left, int right) {
-        if (left > right) return 0;
-        if (left == tl && right == tr) return st[v];
+        if (left > right) 
+            return 0;
+        if (left == tl && right == tr) 
+            return st[v];
+        
         int tm = tl + (tr - tl) / 2;
         return sumRange(2 * v + 1, tl, tm, left, min(right, tm)) +
                sumRange(2 * v + 2, tm + 1, tr, max(left, tm + 1), right);
@@ -233,15 +236,14 @@ public:
         TrieNode* node = root;
         for (char ch : word) {
             int idx = ch - 'a';
-            if (!node->children[idx]) {
+            if (!node->children[idx]) 
                 node->children[idx] = new TrieNode();
-            }
+            
             node = node->children[idx];
             node->suggestions.push_back(word);
             sort(node->suggestions.begin(), node->suggestions.end());
-            if (node->suggestions.size() > 3) {
+            if (node->suggestions.size() > 3) 
                 node->suggestions.pop_back();
-            }
         }
     }
     
@@ -250,9 +252,9 @@ public:
         vector<string> result;
         for (char ch : prefix) {
             int idx = ch - 'a';
-            if (!node->children[idx]) {
+            if (!node->children[idx]) 
                 return result;
-            }
+            
             node = node->children[idx];
         }
         return node->suggestions;
@@ -266,9 +268,8 @@ class Solution {
 public:
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
         Trie trie;
-        for (const string& product : products) {
+        for (const string& product : products) 
             trie.insert(product);
-        }
         
         vector<vector<string>> result;
         string prefix = "";
@@ -294,14 +295,14 @@ public:
         int curr = 1;
         for (int i = 1; i <= n; ++i) {
             result.push_back(curr);
-            if (curr * 10 <= n) {
+            if (curr * 10 <= n) 
                 curr *= 10;
-            } else if (curr % 10 != 9 && curr + 1 <= n) {
+            else if (curr % 10 != 9 && curr + 1 <= n) 
                 curr++;
-            } else {
-                while ((curr / 10) % 10 == 9) {
+            else {
+                while ((curr / 10) % 10 == 9) 
                     curr /= 10;
-                }
+                
                 curr = curr / 10 + 1;
             }
         }
@@ -320,6 +321,7 @@ public:
     struct Trie {
      unordered_map<char, Trie*> childs;   
     };
+
     Trie* root = nullptr;
     int cnt_sharp = 0;
     int cnt_char = 0;
@@ -327,40 +329,33 @@ public:
 
 
     void buildSuffixTrie(string word) {
-      auto current = root;
-      for (int i = word.size() - 1; i >= 0; i--) {
-        char c = word[i];
-        if (current->childs.find(c) != current->childs.end()) {
-           current = current->childs[c];
-        } else {
-            if (current->childs.find('*') != current->childs.end()) {
-              current->childs.erase('*');
-              cnt_char -= (word.size() - i - 1);
-              cnt_sharp--;
+        auto current = root;
+        for (int i = word.size() - 1; i >= 0; i--) {
+            char c = word[i];
+            if (current->childs.find(c) != current->childs.end()) 
+                current = current->childs[c];
+            else {
+                if (current->childs.find('*') != current->childs.end()) {
+                    current->childs.erase('*');
+                    cnt_char -= (word.size() - i - 1);
+                    cnt_sharp--;
+                }
+                current->childs[c] = new Trie();
+                current = current->childs[c];
             }
-            current->childs[c] = new Trie();
-            current = current->childs[c];
+            cnt_char++;
         }
-        cnt_char++;
-      }
-      if (current->childs.size() == 0) {
-        current->childs['*'] = nullptr;
-        cnt_sharp++;
-      } else {
-         cnt_char -= word.size();
-      }
-
+        if (current->childs.size() == 0) {
+            current->childs['*'] = nullptr;
+            cnt_sharp++;
+        } 
+        else 
+            cnt_char -= word.size();
     }
 
-   
-
     int minimumLengthEncoding(vector<string>& words) {
-        
-        for (const auto & word : words) {
+        for (const auto & word : words) 
             buildSuffixTrie(word);
-        }
-
-
 
       return cnt_char + cnt_sharp;
     }
@@ -378,23 +373,35 @@ public:
         int countX = 0, countO = 0;
         for (const string& row : board) {
             for (char c : row) {
-                if (c == 'X') countX++;
-                else if (c == 'O') countO++;
+                if (c == 'X') 
+                    countX++;
+                else if (c == 'O')  
+                    countO++;
             }
         }
-        if (countX != countO && countX != countO + 1) return false; // Invalid count of 'X' and 'O'
-        if (win(board, 'X') && countX != countO + 1) return false; // 'X' wins but 'O' has more turns
-        if (win(board, 'O') && countX != countO) return false; // 'O' wins but 'X' has more turns
+        if (countX != countO && countX != countO + 1) 
+            return false; // Invalid count of 'X' and 'O'
+        if (win(board, 'X') && countX != countO + 1) 
+            return false; // 'X' wins but 'O' has more turns
+        if (win(board, 'O') && countX != countO) 
+            return false; // 'O' wins but 'X' has more turns
+
         return true;
     }
     
     bool win(const vector<string>& board, char player) {
         for (int i = 0; i < 3; ++i) {
-            if (board[i][0] == player && board[i][1] == player && board[i][2] == player) return true; // Check rows
-            if (board[0][i] == player && board[1][i] == player && board[2][i] == player) return true; // Check columns
+            if (board[i][0] == player && board[i][1] == player && board[i][2] == player)    
+                return true; // Check rows
+            if (board[0][i] == player && board[1][i] == player && board[2][i] == player)    
+                return true; // Check columns
         }
-        if (board[0][0] == player && board[1][1] == player && board[2][2] == player) return true; // Check diagonal
-        if (board[0][2] == player && board[1][1] == player && board[2][0] == player) return true; // Check reverse diagonal
+
+        if (board[0][0] == player && board[1][1] == player && board[2][2] == player) 
+            return true; // Check diagonal
+        if (board[0][2] == player && board[1][1] == player && board[2][0] == player) 
+            return true; // Check reverse diagonal
+        
         return false;
     }
 };
@@ -409,9 +416,9 @@ class Solution {
 public:
     vector<bool> camelMatch(vector<string>& queries, string pattern) {
         vector<bool> result;
-        for (const auto& query : queries) {
+        for (const auto& query : queries) 
             result.push_back(isMatch(query, pattern));
-        }
+        
         return result;
     }
     
@@ -421,15 +428,20 @@ public:
             if (query[queryPtr] == pattern[patternPtr]) {
                 queryPtr++;
                 patternPtr++;
-            } else if (isupper(query[queryPtr])) {
+            } 
+            else if (isupper(query[queryPtr])) 
                 return false;
-            } else {
+            
+            else 
                 queryPtr++;
-            }
         }
-        if (patternPtr != pattern.size()) return false;
+        if (patternPtr != pattern.size()) 
+            return false;
+        
         while (queryPtr < query.size()) {
-            if (isupper(query[queryPtr])) return false;
+            if (isupper(query[queryPtr]))   
+                return false;
+            
             queryPtr++;
         }
         return true;
@@ -467,9 +479,9 @@ public:
         
         TrieNode* curr = root;
         for (char ch : key) {
-            if (!curr->children.count(ch)) {
+            if (!curr->children.count(ch)) 
                 curr->children[ch] = new TrieNode();
-            }
+            
             curr = curr->children[ch];
             curr->value += delta;
         }
@@ -478,9 +490,9 @@ public:
     int sum(string prefix) {
         TrieNode* curr = root;
         for (char ch : prefix) {
-            if (!curr->children.count(ch)) {
+            if (!curr->children.count(ch)) 
                 return 0;
-            }
+            
             curr = curr->children[ch];
         }
         return curr->value;
