@@ -90,14 +90,11 @@ public:
         ListNode* prev = NULL;
         ListNode* fast = cur->next;
         while(cur) {
-            // in the first loop current node point NULL and after first loop it points previous node's memory which is prev node
             cur->next = prev;
-            // after this prev has to keep being previous node
             prev = cur;
-            // meanwhile current point its next pointer which is fast
             cur = fast;
-            // fast keeps pointing the next pointer of current if it is available
-            if(fast) fast = fast->next;
+            if(fast) 
+                fast = fast->next;
         }
         return prev;
     }
@@ -107,7 +104,6 @@ public:
         ListNode* r2 = reverseList(l2);
         l1 = r1;
         l2 = r2;
-        // sum will be sum of 2 node values and rem stores the value of tenths place integer 
         int sum=0, rem=0;
         ListNode* res = new ListNode();
         
@@ -120,6 +116,7 @@ public:
                 sum += l2->val; 
                 l2 = l2->next;
             }
+
             res->val = sum%10;
             rem = sum/10;
             ListNode* temp = new ListNode(rem);
@@ -127,7 +124,7 @@ public:
             res = temp;
             sum = rem;
         }
-        // if rem is 0 them it should not be returned
+
         return rem == 0 ? res->next : res;
     }
 };
@@ -207,18 +204,23 @@ public:
         while(temp!=NULL){
             temp=temp->next;
             count++;
+        
         }
-         ListNode*temp1=head;
-          ListNode*temp2=head;
+
+        ListNode*temp1=head;
+        ListNode*temp2=head;
         int x=count-k;
+
         while(k!=1){
             temp1=temp1->next;
             k--;
         }
+
         while(x!=0){
             temp2=temp2->next;
             x--;
         }
+
         int swp=temp1->val;
         temp1->val=temp2->val;
         temp2->val=swp;
@@ -247,7 +249,6 @@ public:
     MyLinkedList(): head(nullptr), size(0) {}
 	    
     int get(int index) {
-        // Return -1 for invalid index
         if(index>=size || index < 0) 
             return -1;
 
@@ -267,7 +268,6 @@ public:
     }
     
     void addAtIndex(int index, int val) {
-        // Return if invalid index
         if (index>size || index < 0) 
             return;
 
@@ -297,7 +297,6 @@ public:
     }
     
     void deleteAtIndex(int index) {
-        // Return if invalid index
         if(index>=size || index < 0) 
             return;
         
@@ -330,7 +329,6 @@ public:
     ~MyLinkedList()
     {
         Node *p = head;
-        // Delete node at head while head is not null
         while (head!=nullptr)
         {
             head= head->next;
@@ -418,15 +416,14 @@ public:
         temp = head;
 
         if (k >= cnt) {
-       
             for (int i = 0; i < cnt; i++) {
                 ListNode* node = new ListNode(temp->val);
                 res.push_back(node);
                 temp = temp->next;
             }
-            for (int i = cnt; i < k; i++) {
+            for (int i = cnt; i < k; i++) 
                 res.push_back(nullptr);
-            }
+            
         }
         else {
             int quotient = cnt / k;
@@ -600,9 +597,9 @@ public:
                sum+=v[j];
 
                if(sum==0){
-               v.erase(v.begin()+i,v.begin()+j+1);
-               i--;
-               break;
+                    v.erase(v.begin()+i,v.begin()+j+1);
+                    i--;
+                    break;
                }
            }
        }
