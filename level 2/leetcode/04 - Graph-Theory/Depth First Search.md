@@ -573,41 +573,39 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=></a></strong></summary>
+  <summary><strong><a href=https://leetcode.com/problems/number-of-enclaves/description/>Number of Enclaves</a></strong></summary>
 
 ```cpp
-
-```
-</details>
-
-<details>
-  <summary><strong><a href=></a></strong></summary>
-
-```cpp
-
-```
-</details>
-
-<details>
-  <summary><strong><a href=></a></strong></summary>
-
-```cpp
-
-```
-</details>
-
-<details>
-  <summary><strong><a href=></a></strong></summary>
-
-```cpp
-
-```
-</details>
-
-<details>
-  <summary><strong><a href=></a></strong></summary>
-
-```cpp
-
+class Solution {
+public:
+    int numEnclaves(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        auto dfs = [&](int i, int j, auto& dfs) {
+            if (i < 0 || j < 0 || i >= m || j >= n || grid[i][j] == 0)
+                return;
+            
+            grid[i][j] = 0;
+            dfs(i - 1, j, dfs);
+            dfs(i + 1, j, dfs);
+            dfs(i, j - 1, dfs);
+            dfs(i, j + 1, dfs);
+        };
+        for (int i = 0; i < m; ++i) {
+            dfs(i, 0, dfs);
+            dfs(i, n - 1, dfs);
+        }
+        for (int j = 0; j < n; ++j) {
+            dfs(0, j, dfs);
+            dfs(m - 1, j, dfs);
+        }
+        int count = 0;
+        for (int i = 0; i < m; ++i) 
+            for (int j = 0; j < n; ++j) 
+                if (grid[i][j] == 1) 
+                    ++count;
+        
+        return count;
+    }
+};
 ```
 </details>
