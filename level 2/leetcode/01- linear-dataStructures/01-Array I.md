@@ -13,12 +13,13 @@ public:
             auto p = q.front();
             q.pop();
             result.push_back(nums[p.first][p.second]);
-            if (p.second == 0 && p.first + 1 < nums.size()){
+
+            if (p.second == 0 && p.first + 1 < nums.size())
                 q.push({p.first + 1, 0});
-            }
-            if (p.second + 1 < nums[p.first].size()){
+            
+            if (p.second + 1 < nums[p.first].size())
                 q.push({p.first, p.second + 1});
-            }
+            
         }
         return result;    
     }
@@ -45,10 +46,9 @@ public:
             minRight[nums.size()-i-1] = min(nums[nums.size()-i-1], minRight[nums.size()-i]);
         }
         
-        for(int i = 0; i < nums.size(); i++){
+        for(int i = 0; i < nums.size(); i++)
             if(maxLeft[i] <= minRight[i+1])
                 return i+1;
-        }
 
         delete[] maxLeft;
         delete[] minRight;
@@ -71,12 +71,11 @@ public:
         int n = nums.size();
         int ans = 0;
 
-        for(int i = 0; i < n; i++){
-            for(int j = i + 1; j < n; j++){
+        for(int i = 0; i < n; i++)
+            for(int j = i + 1; j < n; j++)
                 if(nums[i] <= nums[j])
                     ans = max(ans, j-i);
-            }
-        }
+        
         return ans;
     }
 };
@@ -85,13 +84,13 @@ public:
 class Solution {
 public:
     int maxWidthRamp(vector<int>& nums) {
-        stack <int> stk;  // maintains indices of values in decreasing order from left to right
+        stack <int> stk; 
         int n = nums.size();
 
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < n; i++)
             if(stk.empty() || nums[stk.top()] > nums[i])
                 stk.push(i);
-        }
+        
 
         int best = 0;
         for(int j = n-1; j >= 0; j--){
@@ -175,7 +174,6 @@ public:
             else{
                 if (nums[i-1] <= nums[i] || nums[i+1] <= nums[i])
                     evenCount += nums[i] - (min(nums[i-1], nums[i+1]) - 1);
-            }
         }
         return min(oddCount, evenCount);
     }
@@ -217,13 +215,14 @@ public:
     }
     
     void add(int num) {
-       if(num){
+        if(num){
             product *= num;
             products.push_back(product);
-       }else{
+        }
+        else{
             products.clear();
             product = 1;
-       }
+        }
     }
     
     int getProduct(int k) {
@@ -273,7 +272,8 @@ public:
             if (curr_digit > max_digit){
                 max_digit = curr_digit;
                 max_loc = loc;
-            } else if (curr_digit < max_digit){
+            } 
+            else if (curr_digit < max_digit){
                 l_digit = curr_digit;
                 l_loc = loc;
                 r_digit = max_digit;
@@ -300,11 +300,14 @@ public:
         unordered_map<int, int> remainders;  // to store the remainder of each element
         for(auto a: arr) 
             remainders[(a % k + k) % k] ++;
+
         if (remainders[0] % 2 == 1)
             return false;
+
         for(int i = 1; i < k; i++)
             if (remainders[i] != remainders[k - i])
                 return false;
+
         return true;           
     }
 };
@@ -324,9 +327,8 @@ public:
 
         for(int num: nums){
             countMap[num]++;
-            if(countMap[num] > threshold && find(result.begin(), result.end(), num) == result.end()){
+            if(countMap[num] > threshold && find(result.begin(), result.end(), num) == result.end())
                 result.push_back(num);
-            }
         }
         return result;
     }

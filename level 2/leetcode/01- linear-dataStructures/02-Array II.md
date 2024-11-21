@@ -51,11 +51,10 @@ public:
         int rows = grid.size();
         int cols = grid[0].size();
 
-        for (int i = 0; i <= rows - 3; ++i) {
+        for (int i = 0; i <= rows - 3; ++i) 
             for (int j = 0; j <= cols - 3; ++j) 
                 if (isMagicSquare(grid, i, j)) 
                     ++count;
-        }
 
         return count;
     }
@@ -130,10 +129,10 @@ public:
     }
     
     int get(int index, int snapId) {
-        for(int i = snapId; i >= 0; i--){
+        for(int i = snapId; i >= 0; i--)
             if(listOfVersions[i].count(index))
                 return listOfVersions[i][index];
-        }
+        
         return 0;
     }
 };
@@ -430,7 +429,7 @@ public:
 class Solution {
 public:
     bool checkPossibility(vector<int>& nums) {
-        int cnt = 0; //to store the count of modifications                   
+        int cnt = 0;                
         for(int i = 1; i < nums.size(); i++){
 
             //decreasing sequence found
@@ -450,7 +449,7 @@ public:
             }
         }
         
-        //this command will only run if the loop is totally traversed and count <= 1 so return true.
+        // If the loop is totally traversed and count <= 1 so return true.
         return true;
     } 
 };
@@ -475,6 +474,7 @@ public:
                 count+=v[0];
             else
                 count+=v[60-a];
+            
             v[a]++;
         }
 
