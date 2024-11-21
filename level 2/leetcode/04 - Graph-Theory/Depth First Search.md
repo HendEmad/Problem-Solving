@@ -16,11 +16,19 @@
 class Solution {
 public:
     int rangeSumBST(TreeNode* root, int low, int high) {
-        if (!root) return 0;
+        if (!root) 
+            return 0;
+
         int sum = 0;
-        if (root->val >= low && root->val <= high) sum += root->val;
-        if (root->val > low) sum += rangeSumBST(root->left, low, high);
-        if (root->val < high) sum += rangeSumBST(root->right, low, high);
+        if (root->val >= low && root->val <= high) 
+            sum += root->val;
+        
+        if (root->val > low) 
+            sum += rangeSumBST(root->left, low, high);
+        
+        if (root->val < high) 
+            sum += rangeSumBST(root->right, low, high);
+        
         return sum;
     }
 };
@@ -49,7 +57,9 @@ public:
         TreeNode* current = dummy;
         
         function<void(TreeNode*)> inorder = [&](TreeNode* node) {
-            if (!node) return;
+            if (!node) 
+                return;
+            
             inorder(node->left);
             current->right = new TreeNode(node->val);
             current = current->right;
@@ -84,8 +94,12 @@ public:
         auto getLeaves = [](TreeNode* root) {
             vector<int> leaves;
             function<void(TreeNode*)> dfs = [&](TreeNode* node) {
-                if (!node) return;
-                if (!node->left && !node->right) leaves.push_back(node->val);
+                if (!node) 
+                    return;
+
+                if (!node->left && !node->right) 
+                    leaves.push_back(node->val);
+                
                 dfs(node->left);
                 dfs(node->right);
             };
@@ -119,7 +133,9 @@ class Solution {
 public:
     int maxAncestorDiff(TreeNode* root) {
         function<int(TreeNode*, int, int)> dfs = [&](TreeNode* node, int minVal, int maxVal) {
-            if (!node) return maxVal - minVal;
+            if (!node) 
+                return maxVal - minVal;
+            
             minVal = min(minVal, node->val);
             maxVal = max(maxVal, node->val);
             return max(dfs(node->left, minVal, maxVal), dfs(node->right, minVal, maxVal));
@@ -142,7 +158,9 @@ public:
         if (originalColor == color) return image;
 
         function<void(int, int)> dfs = [&](int r, int c) {
-            if (r < 0 || c < 0 || r >= rows || c >= cols || image[r][c] != originalColor) return;
+            if (r < 0 || c < 0 || r >= rows || c >= cols || image[r][c] != originalColor) 
+                return;
+            
             image[r][c] = color;
             dfs(r - 1, c);
             dfs(r + 1, c);
@@ -178,8 +196,12 @@ public:
         vector<string> paths;
 
         function<void(TreeNode*, string)> dfs = [&](TreeNode* node, string path) {
-            if (!node) return;
-            if (!path.empty()) path += "->";
+            if (!node) 
+                return;
+            
+            if (!path.empty()) 
+                path += "->";
+            
             path += to_string(node->val);
 
             if (!node->left && !node->right) {
@@ -219,7 +241,9 @@ public:
         int minDiff = INT_MAX, prev = -1;
 
         function<void(TreeNode*)> inorder = [&](TreeNode* node) {
-            if (!node) return;
+            if (!node) 
+                return;
+            
             inorder(node->left);
             if (prev != -1) minDiff = min(minDiff, node->val - prev);
             prev = node->val;
@@ -262,8 +286,11 @@ public:
                 TreeNode* node = q.front();
                 q.pop();
                 sum += node->val;
-                if (node->left) q.push(node->left);
-                if (node->right) q.push(node->right);
+                if (node->left) 
+                    q.push(node->left);
+                
+                if (node->right) 
+                    q.push(node->right);
             }
         }
 
@@ -294,7 +321,9 @@ public:
         int totalTilt = 0;
 
         function<int(TreeNode*)> dfs = [&](TreeNode* node) {
-            if (!node) return 0;
+            if (!node) 
+                return 0;
+            
             int leftSum = dfs(node->left);
             int rightSum = dfs(node->right);
             totalTilt += abs(leftSum - rightSum);
@@ -327,12 +356,20 @@ class Solution {
 public:
     bool isBalanced(TreeNode* root) {
         function<int(TreeNode*)> dfs = [&](TreeNode* node) {
-            if (!node) return 0;
+            if (!node) 
+                return 0;
+            
             int leftHeight = dfs(node->left);
-            if (leftHeight == -1) return -1;
+            if (leftHeight == -1) 
+                return -1;
+            
             int rightHeight = dfs(node->right);
-            if (rightHeight == -1) return -1;
-            if (abs(leftHeight - rightHeight) > 1) return -1;
+            if (rightHeight == -1) 
+                return -1;
+            
+            if (abs(leftHeight - rightHeight) > 1) 
+                return -1;
+            
             return max(leftHeight, rightHeight) + 1;
         };
         
@@ -363,8 +400,12 @@ public:
         int sum = 0;
         
         function<void(TreeNode*, TreeNode*, TreeNode*)> dfs = [&](TreeNode* node, TreeNode* parent, TreeNode* grandparent) {
-            if (!node) return;
-            if (grandparent && grandparent->val % 2 == 0) sum += node->val;
+            if (!node) 
+                return;
+            
+            if (grandparent && grandparent->val % 2 == 0) 
+                sum += node->val;
+            
             dfs(node->left, node, parent);
             dfs(node->right, node, parent);
         };
@@ -384,7 +425,9 @@ class Solution {
     int cumulativeSum = 0;
     
     void traverse(TreeNode* node) {
-        if (!node) return;
+        if (!node) 
+            return;
+        
         traverse(node->right);
         cumulativeSum += node->val;
         node->val = cumulativeSum;
@@ -430,21 +473,18 @@ class Solution {
 
         int count = leftPairs + rightPairs;
 
-        for (int l : leftDepths) {
-            for (int r : rightDepths) {
-                if (l + r <= distance) {
+        for (int l : leftDepths) 
+            for (int r : rightDepths) 
+                if (l + r <= distance) 
                     count++;
-                }
-            }
-        }
 
-        for (int d : leftDepths) {
-            if (d + 1 <= distance) depths.push_back(d + 1);
-        }
+        for (int d : leftDepths) 
+            if (d + 1 <= distance) 
+                depths.push_back(d + 1);
 
-        for (int d : rightDepths) {
-            if (d + 1 <= distance) depths.push_back(d + 1);
-        }
+        for (int d : rightDepths) 
+            if (d + 1 <= distance) 
+                depths.push_back(d + 1);
 
         return count;
     }
@@ -482,17 +522,14 @@ public:
         while (current) {
             if (current->child) {
                 Node* next = current->next;
-
                 Node* childHead = flatten(current->child);
-
                 current->next = childHead;
                 childHead->prev = current;
                 current->child = nullptr;
 
                 Node* tail = childHead;
-                while (tail->next) {
+                while (tail->next) 
                     tail = tail->next;
-                }
 
                 if (next) {
                     tail->next = next;
@@ -517,17 +554,15 @@ class Solution {
 public:
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
         vector<vector<int>> tree(n);
-        for (int i = 0; i < n; ++i) {
-            if (manager[i] != -1) {
+        for (int i = 0; i < n; ++i) 
+            if (manager[i] != -1) 
                 tree[manager[i]].push_back(i);
-            }
-        }
 
         function<int(int)> dfs = [&](int employee) {
             int maxTime = 0;
-            for (int subordinate : tree[employee]) {
+            for (int subordinate : tree[employee]) 
                 maxTime = max(maxTime, dfs(subordinate));
-            }
+
             return maxTime + informTime[employee];
         };
 
