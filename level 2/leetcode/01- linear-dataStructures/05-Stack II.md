@@ -52,7 +52,8 @@ public:
                     st.push(ch);
                 else
                     return false;
-            } else{
+            } 
+            else{
                 if(!st.empty()&&st.top()=='b'){
                     st.pop();
                         if(!st.empty()&&st.top()=='a')
@@ -147,18 +148,17 @@ public:
             string token;
             vector<string> tokens;
 
-            while(getline(ss, token, ':')) {
+            while(getline(ss, token, ':')) 
                 tokens.push_back(token);
-            }
 
             int func_id = stoi(tokens[0]);
             string call_type = tokens[1];
             int timestamp = stoi(tokens[2]);
 
             if(call_type == "start") {
-                if(!call_stack.empty()) {
+                if(!call_stack.empty()) 
                     execution_times[call_stack.top()] += timestamp - prev_start_time;
-                }
+                
                 call_stack.push(func_id);
                 prev_start_time = timestamp;
             }else {
@@ -226,13 +226,13 @@ class Solution {
 public:
     string decodeAtIndex(string s, int k) {
         long long sz = 0;
-        // first calculate total decoded length size
         for(int i = 0 ; i < s.size(); i++){
-            if(s[i] >= 'a' && s[i] <= 'z') sz++;
-            else sz *= (long long)(s[i] - '0');
+            if(s[i] >= 'a' && s[i] <= 'z') 
+                sz++;
+            else 
+                sz *= (long long)(s[i] - '0');
         }
-        // after that size if "string.length"x ,then do k %= (string.length());
-        // where , 2 <= x <= 9
+
         for(int i = s.size()-1 ; i >= 0 ; i--){
             if(s[i] >= 'a' && s[i] <= 'z'){
                 if(k == sz || k == 0) return string(1,s[i]);
@@ -261,29 +261,25 @@ public:
     int sumSubarrayMins(vector<int>& arr) {
         int n = arr.size();
         long long result = 0;
-        vector<int> prev_smaller(n, -1); // Store the index of previous smaller element
-        vector<int> next_smaller(n, n);  // Store the index of next smaller element
-
-        // Find the previous smaller element
+        vector<int> prev_smaller(n, -1); 
+        vector<int> next_smaller(n, n);
         stack<int> s;
+
         for (int i = 0; i < n; i++) {
-            while (!s.empty() && arr[s.top()] > arr[i]) {
+            while (!s.empty() && arr[s.top()] > arr[i]) 
                 s.pop();
-            }
+            
             prev_smaller[i] = s.empty() ? -1 : s.top();
             s.push(i);
         }
 
-        // Clear the stack for next pass
-        while (!s.empty()) {
+        while (!s.empty()) 
             s.pop();
-        }
 
-        // Find the next smaller element
         for (int i = n - 1; i >= 0; i--) {
-            while (!s.empty() && arr[s.top()] >= arr[i]) {
+            while (!s.empty() && arr[s.top()] >= arr[i]) 
                 s.pop();
-            }
+            
             next_smaller[i] = s.empty() ? n : s.top();
             s.push(i);
         }
@@ -311,10 +307,9 @@ public:
         int third = INT_MIN; 
 
         for (int i = n - 1; i >= 0; i--) {
-            // If we find a number smaller than the potential candidate for "3", it means we've found a valid 132 pattern
-            if (nums[i] < third) {
+            if (nums[i] < third) 
                 return true;
-            }
+            
             while (!candidate.empty() && nums[i] > candidate.top()) {
                 third = candidate.top();
                 candidate.pop();
@@ -342,6 +337,7 @@ public:
 
         if(preorder[0]=='#' && n == 1)
             return true;
+
         if(preorder[0]=='#' && n > 1)
             return false;
         
@@ -357,12 +353,13 @@ public:
             if(cnt-1 < 0)
                 return false;
 
-            if(preorder[i] == '#'){
+            if(preorder[i] == '#')
                 cnt--;
-            }
+            
             else{
                 if(next)
                     cnt++;
+
                 next = false;
             }
 
@@ -390,6 +387,7 @@ public:
                 st.push(s[i]);
                 i++;
             }
+
             else if(s[i]==')'){
                 if(st.empty()){
                     if((i+1)<s.length()){
@@ -450,31 +448,31 @@ public:
                 continue;
             }
 
-            //IF negative asteroid
             int flag=0;
             while(!myStack.empty() && myStack.top()>0){
                 if(abs(asteroids[i]) == abs(myStack.top())){
                     myStack.pop();
                     flag=1;
                     break;
-                }else if(abs(asteroids[i]) > abs(myStack.top())){
+                }
+                else if(abs(asteroids[i]) > abs(myStack.top()))
                     myStack.pop();
-                }else{
+                
+                else{
                     flag=1;
-                    break;  //If negative asteroid is smaller
+                    break;  
                 }
             }
-            if(flag==0){
+            if(flag==0)
                 myStack.push(asteroids[i]);
-            }
         }
 
         vector<int> ans(myStack.size(),0);
         for(int i=myStack.size()-1;i>=0;i--){
             ans[i]=myStack.top();
             myStack.pop();
-
         }
+
         return ans;
     }
 };
@@ -517,15 +515,15 @@ public:
 class Solution {
 public:
     NestedInteger deserialize(string s) {
-        if(s[0] != '[') return NestedInteger(stoi(s)); // if string contains single number ex: "123".
+        if(s[0] != '[') return NestedInteger(stoi(s));
     
-        vector<NestedInteger> v; // using vector to simulate stack
-        string num = ""; // num will store the number, number can be negative or positive.
+        vector<NestedInteger> v; 
+        string num = ""; 
     
         for(auto c: s){
-            if(c == '['){
+            if(c == '[')
                 v.push_back(NestedInteger());
-            }
+            
             else if(c == ']' or c == ','){
                 if(num != ""){
                     v.back().add(NestedInteger(stoi(num)));
@@ -538,7 +536,7 @@ public:
                     v.back().add(ni);
                 }
             }
-            else num.push_back(c); // if c is a digit just add to num.
+            else num.push_back(c); 
         }
     
         return v.back();
@@ -557,6 +555,7 @@ public:
         int sz=hours.size(),len=0;
         for(int i=0;i<sz;i++){
            int t=0,nt=0;
+
            for(int j=i;j<sz;j++){
                 if(hours[j]>8)
                     t++;

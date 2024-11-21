@@ -10,15 +10,15 @@ public:
         
         for (char c : s) {
             if (c == '(') {
-                if (balance > 0) {
+                if (balance > 0) 
                     result += c;
-                }
+                
                 balance++;
-            } else {
+            } 
+            else {
                 balance--;
-                if (balance > 0) {
+                if (balance > 0) 
                     result += c;
-                }
             }
         }
         
@@ -38,11 +38,11 @@ public:
         stack<char> st;
         
         for (char c : s) {
-            if (!st.empty() && st.top() == c) {
+            if (!st.empty() && st.top() == c) 
                 st.pop();
-            } else {
+            
+            else 
                 st.push(c);
-            }
         }
         
         string result;
@@ -71,7 +71,8 @@ public:
             if (i == target[targetIndex]) {
                 operations.push_back("Push");
                 targetIndex++;
-            } else {
+            } 
+            else {
                 operations.push_back("Push");
                 operations.push_back("Pop");
             }
@@ -100,13 +101,16 @@ public:
                 int newTop = top + scores.top();
                 scores.push(top);
                 scores.push(newTop);
-            } else if (op == "D") {
+            } 
+            else if (op == "D") 
                 scores.push(2 * scores.top());
-            } else if (op == "C") {
+            
+            else if (op == "C") 
                 scores.pop();
-            } else {
+            
+            
+            else 
                 scores.push(stoi(op));
-            }
         }
 
         // Calculate total score
@@ -134,15 +138,16 @@ public:
     }
     
     void push(int x) {
-        if (stack.size() < maxSize) {
+        if (stack.size() < maxSize) 
             stack.push_back(x);
-        }
+        
     }
     
     int pop() {
-        if (stack.empty()) {
+        if (stack.empty()) 
             return -1;
-        } else {
+        
+        else {
             int val = stack.back();
             stack.pop_back();
             return val;
@@ -151,9 +156,8 @@ public:
     
     void increment(int k, int val) {
         int n = min(k, static_cast<int>(stack.size()));
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) 
             stack[i] += val;
-        }
     }
 };
 
@@ -177,28 +181,24 @@ public:
         stack<int> st;
         unordered_map<int, int> next_greater;
 
-        // Iterate nums2 from right to left
         for (int i = nums2.size() - 1; i >= 0; --i) {
             int num = nums2[i];
-            // Pop elements from stack until finding a greater element
-            while (!st.empty() && st.top() <= num) {
+            while (!st.empty() && st.top() <= num) 
                 st.pop();
-            }
-            // If there's no greater element, set -1
-            if (st.empty()) {
+            
+            if (st.empty()) 
                 next_greater[num] = -1;
-            } else {  // Otherwise, set the next greater element
+            
+            else 
                 next_greater[num] = st.top();
-            }
-            // Push current element to stack
+            
             st.push(num);
         }
 
-        // Look up the next greater element for each element in nums1
         vector<int> result;
-        for (int num : nums1) {
+        for (int num : nums1) 
             result.push_back(next_greater[num]);
-        }
+        
         return result;
     }
 };
@@ -216,13 +216,13 @@ public:
         
         for (const string& log : logs) {
             if (log == "../") {
-                if (!folders.empty()) {
+                if (!folders.empty()) 
                     folders.pop();
-                }
-            } else if (log == "./") {
+                
+            } else if (log == "./") 
                 // Do nothing
-            } else {
-                // Extract folder name
+            
+            else {
                 string folderName = log.substr(0, log.length() - 1);
                 folders.push(folderName);
             }
@@ -259,15 +259,11 @@ public:
 
 private:
     void postorderHelper(TreeNode* node, vector<int>& result) {
-        if (node == nullptr) return; // Base case: if node is null, return
-        
-        // Recursively traverse the left subtree
+        if (node == nullptr)
+            return; 
+
         postorderHelper(node->left, result);
-        
-        // Recursively traverse the right subtree
         postorderHelper(node->right, result);
-        
-        // Visit the current node
         result.push_back(node->val);
     }
 };
@@ -300,15 +296,11 @@ public:
 
 private:
     void preorderHelper(TreeNode* node, vector<int>& result) {
-        if (node == nullptr) return; // Base case: if node is null, return
+        if (node == nullptr) 
+            return; 
         
-        // Visit the current node
         result.push_back(node->val);
-        
-        // Recursively traverse the left subtree
         preorderHelper(node->left, result);
-        
-        // Recursively traverse the right subtree
         preorderHelper(node->right, result);
     }
 };
@@ -325,14 +317,14 @@ public:
         stack<char> st;
 
         for (char c : s) {
-            if (!st.empty() && abs(st.top() - c) == 32) { // Check if characters form a bad pair
-                st.pop(); // Pop the top character if it forms a bad pair
-            } else {
-                st.push(c); // Push the current character onto the stack
+            if (!st.empty() && abs(st.top() - c) == 32) 
+                st.pop(); 
             }
+            else 
+                st.push(c);
+            
         }
 
-        // Construct the resulting string from characters remaining in the stack
         string result;
         while (!st.empty()) {
             result = st.top() + result;
@@ -353,7 +345,6 @@ class MyQueue {
     stack <int> inputStack;
     stack <int> outputStack;
 
-    // A function to move elements from inputStack to outputStack
     void moveElements () {
         if (outputStack.empty()) {
             while(!inputStack.empty()) {
@@ -408,17 +399,15 @@ class MyStack {
     queue <int> inputQueue;
     queue <int> outputQueue;
 
-
 public:
-    MyStack() {
-        
-    }
+    MyStack() {}
     
     void push(int x) {
         while(!inputQueue.empty()) {
             outputQueue.push(inputQueue.front());
             inputQueue.pop();
         }
+
         inputQueue.push(x);
         while(!outputQueue.empty()) {
             inputQueue.push(outputQueue.front());
@@ -488,17 +477,19 @@ public:
         for(int i = 0; i < s.length(); i++) {
             if (s[i] == '(')
                 st.push(s[i]);
+
             if(isalpha(s[i]))
                 st.push(s[i]);
+
             if(s[i] == ')') {
                 while(st.top() != '(') {
                     str += st.top();
                     st.pop();
                 }
+
                 st.pop();
-                for(int i = 0; i < str.length(); i++) {
+                for(int i = 0; i < str.length(); i++) 
                     st.push(str[i]);
-                }
 
                 str = "";
             }        
@@ -529,6 +520,7 @@ public:
         for(int i = 0; i < s.size(); i++) {
             if(s[i] == '(')
                 st.push(i);
+            
             else if(s[i] == ')') {
                 if(st.empty())
                     is_removal[i] = true;
@@ -569,19 +561,19 @@ public:
             st.push({price, count});
             ans = 1;
         }
-        else if(!st.empty() && st.top().first > price) {
+        else if(!st.empty() && st.top().first > price) 
             ans = count - st.top().second;
-        }
+
         else if (!st.empty() && st.top().first <= price) {
-            while(!st.empty() && st.top().first <= price) {
+            while(!st.empty() && st.top().first <= price) 
                 st.pop();
-            }
-            if(st.empty()) {
+            
+            if(st.empty()) 
                 ans = count;
-            }
-            else {
+            
+            else 
                 ans = count - st.top().second;
-            }
+            
         }
         st.push({price, count});
         count++;
