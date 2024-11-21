@@ -280,14 +280,14 @@ public:
         string word;
         int index = 0;
         
-        while (ss >> word) {
+        while (ss >> word) 
             words.push_back({word, index++});
-        }
 
         stable_sort(words.begin(), words.end(), 
         [](const pair<string, int>& a, const pair<string, int>& b) {
             if (a.first.size() == b.first.size()) 
                 return a.second < b.second;
+            
             return a.first.size() < b.first.size();
         });
 

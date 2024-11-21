@@ -6,9 +6,9 @@ class Solution {
 public:
     string restoreString(string s, vector<int>& indices) {
         string result(s.size(), ' ');
-        for (int i = 0; i < s.size(); ++i) {
+        for (int i = 0; i < s.size(); ++i) 
             result[indices[i]] = s[i];
-        }
+        
         return result;
     }
 };
@@ -37,12 +37,10 @@ public:
         }
         
         string result = "";
-        for (string w : words) {
-            if (!w.empty()) {
+        for (string w : words) 
+            if (!w.empty()) 
                 if (!result.empty()) result += " ";
                 result += w;
-            }
-        }
         
         return result;
     }
@@ -58,7 +56,8 @@ class Solution {
 public:
     string sortString(string s) {
         vector<int> count(26, 0);
-        for (char c : s) count[c - 'a']++;
+        for (char c : s) 
+            count[c - 'a']++;
         
         string result;
         while (result.size() < s.size()) {
@@ -162,6 +161,7 @@ public:
         int bitsB = __builtin_popcount(b);
         if (bitsA == bitsB) 
             return a < b;
+        
         return bitsA < bitsB;
     }
 
@@ -244,10 +244,9 @@ public:
         }
 
         vector<int> remaining;
-        for (const auto& entry : count) {
+        for (const auto& entry : count) 
             for (int i = 0; i < entry.second; i++) 
                 remaining.push_back(entry.first);
-        }
 
         sort(remaining.begin(), remaining.end());
         result.insert(result.end(), remaining.begin(), remaining.end());
