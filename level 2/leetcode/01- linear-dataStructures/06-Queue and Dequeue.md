@@ -10,6 +10,7 @@ public:
     int ping(int t) {
         int range = t - 3000;
         q.push(t);
+
         while(!q.empty() && q.front() < range) 
             q.pop();
         
@@ -71,6 +72,7 @@ public:
     bool insertLast(int value) {
         if (curSize == n)
             return false;
+
         curSize++;
         DLL* temp = new DLL(value);
         temp -> next = tail;
@@ -83,6 +85,7 @@ public:
     bool deleteFront() {
         if (curSize == 0)
             return false;
+
         DLL* temp = head -> next;
         head -> next -> prev = head;
         head -> next = temp -> next;
@@ -94,6 +97,7 @@ public:
     bool deleteLast() {
         if (curSize == 0)
             return false;
+
         DLL* temp = tail -> prev;
         tail -> prev = temp -> prev;
         temp -> prev -> next = tail;
@@ -105,12 +109,14 @@ public:
     int getFront() {
         if (head -> next -> val == -1)
             return -1;
+
         return head -> next -> val;
     }
     
     int getRear() {
         if (tail -> prev -> val == -1)
             return -1;
+
         return tail -> prev -> val;
     }
     
@@ -151,6 +157,7 @@ public:
     bool enQueue(int value) {
         if(isFull()) 
             return false;
+
         rear = (rear + 1) % size;
         arr[rear] = value;
         length++;
@@ -160,6 +167,7 @@ public:
     bool deQueue() {
         if(isEmpty())
             return false;
+
         front = (front + 1) % size;
         --length;
         return true;
@@ -168,12 +176,14 @@ public:
     int Front() {
         if(isEmpty())
             return -1;
+
         return arr[front];
     }
     
     int Rear() {
         if(isEmpty()) 
             return -1;
+
         return arr[rear];
     }
     
@@ -214,15 +224,13 @@ public:
         dq.push_back(0);
 
         for (int i = 1; i < n; i++) {
-            while (!dq.empty() && dq.front() < i - k) {
+            while (!dq.empty() && dq.front() < i - k) 
                 dq.pop_front();
-            }
 
             dp[i] = nums[i] + dp[dq.front()];
 
-            while (!dq.empty() && dp[i] >= dp[dq.back()]) {
+            while (!dq.empty() && dp[i] >= dp[dq.back()]) 
                 dq.pop_back();
-            }
 
             dq.push_back(i);
         }
@@ -247,7 +255,8 @@ public:
         if (c == '(') {
             st.push(currentScore);
             currentScore = 0;
-        } else {
+        } 
+        else {
             currentScore = st.top() + max(2 * currentScore, 1);
             st.pop();
         }
@@ -275,14 +284,13 @@ public:
     
     void pushMiddle(int val) {
         int n=dq.size()/2;
-        for(int i=0;i<n;i++)
-        {
+        for(int i=0;i<n;i++) {
             s.push(dq.front());
             dq.pop_front();
         }
+
         dq.push_front(val);
-        while(!s.empty())
-        {
+        while(!s.empty()) {
             dq.push_front(s.top());
             s.pop();
         }
@@ -303,21 +311,22 @@ public:
     
     int popMiddle() {
         if(dq.empty())
-        return -1;
+            return -1;
+        
         int n=dq.size();
         if(n%2==0)
-        n=(dq.size()/2)-1;
+            n=(dq.size()/2)-1;
         else
-        n=dq.size()/2;
-        for(int i=0;i<n;i++)
-        {
+            n=dq.size()/2;
+        
+        for(int i=0;i<n;i++) {
             s.push(dq.front());
             dq.pop_front();
         }
+
         int ans=dq.front();
         dq.pop_front();
-        while(!s.empty())
-        {
+        while(!s.empty()) {
             dq.push_front(s.top());
             s.pop();
         }
@@ -326,8 +335,7 @@ public:
     
     int popBack() {
         int ans=-1;
-        if(!dq.empty())
-        {
+        if(!dq.empty()) {
             ans=dq.back();
             dq.pop_back();
         }
@@ -349,14 +357,13 @@ public:
         int maxLength = 0;
 
         for (right = 0; right < nums.size(); right++) {
-            if (nums[right] == 0) {
+            if (nums[right] == 0) 
                 zeroCount++;
-            }
 
             while (zeroCount > k) {
-                if (nums[left] == 0) {
+                if (nums[left] == 0) 
                     zeroCount--;
-                }
+                
                 left++;
             }
 
@@ -382,20 +389,18 @@ public:
         int currentExtraSatisfaction = 0;
 
         // Calculate base satisfaction (customers satisfied when owner is not grumpy)
-        for (int i = 0; i < n; ++i) {
-            if (grumpy[i] == 0) {
+        for (int i = 0; i < n; ++i) 
+            if (grumpy[i] == 0) 
                 baseSatisfaction += customers[i];
-            }
-        }
 
         // Sliding window to find the maximum extra satisfaction
         for (int i = 0; i < n; ++i) {
-            if (grumpy[i] == 1) {
+            if (grumpy[i] == 1) 
                 currentExtraSatisfaction += customers[i];
-            }
-            if (i >= minutes && grumpy[i - minutes] == 1) {
+            
+            if (i >= minutes && grumpy[i - minutes] == 1) 
                 currentExtraSatisfaction -= customers[i - minutes];
-            }
+            
             maxExtraSatisfaction = max(maxExtraSatisfaction, currentExtraSatisfaction);
         }
 
@@ -416,21 +421,20 @@ public:
         int maxVowelCount = 0, currentVowelCount = 0;
     
         // Count vowels in the first window
-        for (int i = 0; i < k; ++i) {
-            if (vowels.count(s[i])) {
+        for (int i = 0; i < k; ++i) 
+            if (vowels.count(s[i])) 
                 currentVowelCount++;
-            }
-        }
+            
         maxVowelCount = currentVowelCount;
     
         // Sliding window
         for (int i = k; i < s.length(); ++i) {
-            if (vowels.count(s[i])) {
+            if (vowels.count(s[i])) 
                 currentVowelCount++;
-            }
-            if (vowels.count(s[i - k])) {
+            
+            if (vowels.count(s[i - k])) 
                 currentVowelCount--;
-            }
+            
             maxVowelCount = max(maxVowelCount, currentVowelCount);
         }
     
@@ -457,16 +461,16 @@ public:
         int min_moves = n;
         int j = 0;
         for (int i = 0; i < n; ++i) {
-            while (j < n && stones[j] <= stones[i] + n - 1) {
+            while (j < n && stones[j] <= stones[i] + n - 1) 
                 ++j;
-            }
+            
             int already_in_window = j - i;
-            if (already_in_window == n - 1 && stones[j - 1] - stones[i] == n - 2) {
+            if (already_in_window == n - 1 && stones[j - 1] - stones[i] == n - 2) 
                 // Special case: one stone out of place, edge case
                 min_moves = min(min_moves, 2);
-            } else {
+            
+            else 
                 min_moves = min(min_moves, n - already_in_window);
-            }
         }
     
         return {min_moves, max_moves};
@@ -487,22 +491,24 @@ public:
     
         for (int right = 0; right < nums.size(); ++right) {
             // Maintain maxDeque
-            while (!maxDeque.empty() && nums[maxDeque.back()] <= nums[right]) {
+            while (!maxDeque.empty() && nums[maxDeque.back()] <= nums[right]) 
                 maxDeque.pop_back();
-            }
+            
             maxDeque.push_back(right);
         
             // Maintain minDeque
-            while (!minDeque.empty() && nums[minDeque.back()] >= nums[right]) {
+            while (!minDeque.empty() && nums[minDeque.back()] >= nums[right]) 
                 minDeque.pop_back();
-            }
+            
             minDeque.push_back(right);
         
             // Check if the current window is valid
             while (nums[maxDeque.front()] - nums[minDeque.front()] > limit) {
                 left++;
-                if (maxDeque.front() < left) maxDeque.pop_front();
-                if (minDeque.front() < left) minDeque.pop_front();
+                if (maxDeque.front() < left) 
+                    maxDeque.pop_front();
+                if (minDeque.front() < left) 
+                    minDeque.pop_front();
             }
         
             // Update the maximum length of valid subarray
