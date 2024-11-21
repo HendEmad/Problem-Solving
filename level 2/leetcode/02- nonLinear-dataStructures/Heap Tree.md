@@ -141,6 +141,7 @@ public:
             double diff =
                 ((double)(classes[i][0] + 1) / (double)(classes[i][1] + 1)) -
                 (double)classes[i][0] / (double)classes[i][1];
+
             max_heap.push({diff, i});
         }
 
@@ -175,28 +176,27 @@ class Solution {
 public:
     vector<string> topKFrequent(vector<string>& words, int k) {
         unordered_map<string, int> map;
-        for(int i = 0; i < words.size(); i++) {
+        for(int i = 0; i < words.size(); i++) 
             map[words[i]]++;
-        }
 
         auto cmp = [] (const pair<int, string>& a, const pair<int, string>&b) {
-            if(a.first == b.first) {
+            if(a.first == b.first) 
                 return a.second > b.second;
-            }
+            
             return a.first < b.first;
         };
 
         priority_queue<pair<int, string>, vector<pair<int, string>>, decltype(cmp)> pq(cmp);
 
-        for(const auto& [word, freq] : map) {
+        for(const auto& [word, freq] : map) 
             pq.push({freq, word});  
-        }
 
         vector <string> res;
         for(int i = 0; i < k && !pq.empty(); i++) {
             res.emplace_back(pq.top().second);
             pq.pop();
         }
+
         return res;
     }
 };
@@ -212,9 +212,8 @@ public:
     bool isNStraightHand(vector<int>& hand, int groupSize) {
         int handSize = hand.size();
 
-        if (handSize % groupSize != 0) {
+        if (handSize % groupSize != 0) 
             return false;
-        }
 
         map<int, int> cardCount;
         for (int i = 0; i < handSize; i++) {
@@ -224,13 +223,12 @@ public:
         while (!cardCount.empty()) {
             int currentCard = cardCount.begin()->first;
             for (int i = 0; i < groupSize; i++) {
-                if (cardCount[currentCard + i] == 0) {
+                if (cardCount[currentCard + i] == 0) 
                     return false;
-                }
+                
                 cardCount[currentCard + i]--;
-                if (cardCount[currentCard + i] < 1) {
+                if (cardCount[currentCard + i] < 1) 
                     cardCount.erase(currentCard + i);
-                }
             }
         }
         return true;
@@ -302,9 +300,8 @@ public:
                 prev = it;
             }
 
-            if(n - 1 - *seats.rbegin() > maxDist) {
+            if(n - 1 - *seats.rbegin() > maxDist) 
                 student = n - 1;
-            }
         }
 
         seats.insert(student);
@@ -352,7 +349,8 @@ public:
 
             sort(times.begin(), times.end());
 
-            if(times.size() < 3) continue;
+            if(times.size() < 3) 
+                continue;
             
             for (int i = 0; i < times.size() - 2; ++i) {
                 if (times[i + 2] - times[i] <= 60) {
@@ -404,9 +402,9 @@ public:
             }
 
             if (availableTasks.empty()) {
-                if (idx < n) {
+                if (idx < n) 
                     currentTime = enqueueTime[sortedIndices[idx]];
-                }
+    
                 continue;
             }
 
