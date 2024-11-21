@@ -9,9 +9,8 @@ public:
         if(root == NULL) 
             return;
         ans.push_back(root -> val);
-        for(int i = 0; i < root -> children.size(); i++) {
+        for(int i = 0; i < root -> children.size(); i++) 
             traverse(root -> children[i]);
-        }
     }
 
     vector<int> preorder(Node* root) {
@@ -32,11 +31,12 @@ public:
     void traverse(Node* root) {
         if(root == NULL)
             return;
-        for(int i = 0; i < root -> children.size(); i++) {
+        for(int i = 0; i < root -> children.size(); i++) 
             traverse(root -> children[i]);
-        }
+        
         ans.push_back(root -> val);
     }
+
     vector<int> postorder(Node* root) {
         traverse(root);
         return ans;
@@ -77,11 +77,13 @@ public:
     void trace(TreeNode* root, int& ans, int sum){
         if(root == NULL)
             return;
+
         sum = 2 * sum + root->val;  // shifting and adding up the new left child
         if(root -> left == NULL && root -> right == NULL){
             ans += sum;
             return;
         }
+
         if(root -> left) 
             trace(root-> left, ans, sum);
         if(root -> right)
@@ -103,18 +105,19 @@ public:
 ```cpp
 class Solution {
     bool isUnival(TreeNode* node, int value) {
-        // If the node is NULL, return true
-        if (node == NULL) return true;
-        // If the current node's value is not equal to the given value, return false
-        if (node->val != value) return false;
-        // Recursively check the left and right subtrees
+        if (node == NULL) 
+            return true;
+
+        if (node->val != value) 
+            return false;
+
         return isUnival(node->left, value) && isUnival(node->right, value);
     }
 public:
     bool isUnivalTree(TreeNode* root) {
-        // If the tree is empty, it is considered uni-valued
-        if (root == NULL) return true;
-        // Helper function to recursively check if the tree is uni-valued
+        if (root == NULL) 
+            return true;
+        
         return isUnival(root, root->val);
     }
 };
@@ -127,12 +130,15 @@ public:
 ```cpp
 class Solution {
     int sumOfLeftLeavesHelper(TreeNode* node, bool isLeft) {
-        if (node == NULL) return 0;
+        if (node == NULL) 
+            return 0;
+        
         if (node->left == NULL && node->right == NULL && isLeft) 
             return node->val;
 
         int leftSum = sumOfLeftLeavesHelper(node->left, true);
         int rightSum = sumOfLeftLeavesHelper(node->right, false);
+        
         return leftSum + rightSum;
     }
     
@@ -150,13 +156,11 @@ public:
 ```cpp
 class Solution {
     bool find(TreeNode* node, int k, unordered_set<int>& seen) {
-        if (node == NULL) {
-            return false;
-        }
+        if (node == NULL) 
+            return false;        
         
-        if (seen.count(k - node->val)) {
+        if (seen.count(k - node->val)) 
             return true;
-        }
         
         seen.insert(node->val);
         
@@ -178,11 +182,16 @@ public:
 class Solution {
 public:
     TreeNode* pruneTree(TreeNode* root) {
-        if (root == NULL) return NULL;
+        if (root == NULL) 
+            return NULL;
+        
         root->left = pruneTree(root->left);
         root->right = pruneTree(root->right);
-        if (root->val == 1) return root;
-        if (root->left == NULL && root->right == NULL) return NULL;
+        if (root->val == 1) 
+            return root;
+        if (root->left == NULL && root->right == NULL) 
+            return NULL;
+        
         return root;
     }
 };
@@ -196,15 +205,15 @@ public:
 class Solution {
     private :
     void create(TreeNode* root , string &st){
-        if(!root){
+        if(!root)
             return ;
-        }
+        
         else{
             string t = to_string(root -> val);
             st += t;
-            if(!root->left && !root->right){
+            if(!root->left && !root->right)
                 return ;
-            }
+            
             st+="(";
             create(root -> left , st);
             st+=")";
@@ -232,13 +241,11 @@ public:
 class Solution {
 public:
     TreeNode* solve(vector<int>p,int mini,int maxi,int&i){
-        if(i>=p.size()){
+        if(i>=p.size())
             return NULL;
-        }
 
-        if(p[i]<mini || p[i]>maxi){
+        if(p[i]<mini || p[i]>maxi)
             return NULL;
-        }
 
         TreeNode* root=new TreeNode(p[i++]);
         root->left=solve(p,mini,root->val,i);
@@ -262,9 +269,9 @@ public:
 class Solution {
 public:
     TreeNode* insertIntoBST(TreeNode* root, int d) {
-        if(root == NULL){
+        if(root == NULL)
             return new TreeNode(d);
-        }
+        
         TreeNode* temp = new TreeNode(d);
         TreeNode* ans = root;
         while(root!=NULL){
@@ -274,14 +281,14 @@ public:
                 else {
                     root->right = temp;
                     break;
-                    }
+                }
             }else{
                 if(root -> left)
                     root = root->left;
                 else {
                     root->left = temp;
                     break;
-                    }
+                }
             }
         }
         return ans;
@@ -298,30 +305,32 @@ public:
 class Solution {
 public:
     TreeNode* insertIntoBST(TreeNode* root, int d) {
-        if(root == NULL){
+        if(root == NULL)
             return new TreeNode(d);
-        }
+        
         TreeNode* temp = new TreeNode(d);
         TreeNode* ans = root;
         while(root!=NULL){
             if(root->val < d){
                 if(root->right)
                     root = root->right;
+                
                 else {
                     root->right = temp;
                     break;
-                    }
-            }else{
+                }
+            
+            }else {
                 if(root -> left)
                     root = root->left;
+                
                 else {
                     root->left = temp;
                     break;
-                    }
+                }
             }
         }
         return ans;
-
     }
 };
 ```
@@ -334,35 +343,32 @@ public:
 class Solution {
 public:
     void remove(TreeNode * root,int t){
-        if(root==NULL){
+        if(root==NULL)
             return;
-        }
+        
         else{
             remove(root->left,t);
             remove(root->right,t);
-            if(root->left!=NULL){
-                if(root->left->val==t){
-                    if(root->left->left==NULL && root->left->right==NULL){
+            if(root->left!=NULL)
+                if(root->left->val==t)
+                    if(root->left->left==NULL && root->left->right==NULL)
                         root->left=NULL;
-                    }
-                }
-            }
-                        if(root->right!=NULL){
-                if(root->right->val==t){
-                    if(root->right->left==NULL && root->right->right==NULL){
+                    
+            if(root->right!=NULL)
+                if(root->right->val==t)
+                    if(root->right->left==NULL && root->right->right==NULL)
                         root->right=NULL;
-                    }
-                }
-            }
+                    
             return;
         }
     }
     TreeNode* removeLeafNodes(TreeNode* root, int target) {
         
         remove(root,target);
-        if(root->val==target && root->left==NULL && root->right==NULL) return NULL;
-        return root;
+        if(root->val==target && root->left==NULL && root->right==NULL) 
+            return NULL;
         
+        return root;
     }
 };
 ```
@@ -391,9 +397,10 @@ void inorder(TreeNode* root,unordered_map<int,int>&mp){
             if(m.second > maxi)
             maxi = m.second;
         }
-        for(auto m : mp){
-            if(m.second == maxi)ans.push_back(m.first);
-        }
+        for(auto m : mp)
+            if(m.second == maxi)
+                ans.push_back(m.first);
+        
         return ans;
     }
 };
@@ -409,11 +416,14 @@ TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
     if (root==NULL) {
         res = new TreeNode(val);
         return res;
-    } else if (val > root->val) {
+    } 
+    else if (val > root->val) {
         res = new TreeNode(val);
         res->left = root;
+        
         return res;
-    } else {
+    } 
+    else {
         res = insertIntoMaxTree(root->right, val);
         root->right = res;
         return root;
@@ -429,17 +439,16 @@ TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
 class Solution {
 public:
 
-    int findindex(vector<int>& postorder, int element)
-    {
+    int findindex(vector<int>& postorder, int element) {
         for(int i=0;i<postorder.size();i++)
             if(postorder[i]==element) 
                 return i;
+    
         return -1;
     }
 
 
-    TreeNode* helper(vector<int>& preorder, vector<int>& postorder, int prestart, int preend, int poststart, int postend)
-    {
+    TreeNode* helper(vector<int>& preorder, vector<int>& postorder, int prestart, int preend, int poststart, int postend) {
         if(prestart>preend || poststart>postend) 
             return NULL;
 
@@ -452,8 +461,6 @@ public:
         root->left = helper(preorder, postorder, prestart+1, prestart+len, poststart, index);
         root->right = helper(preorder, postorder, prestart+len+1, preend, index+1, postend-1);
         return root;
-
-
     }
 
     TreeNode* constructFromPrePost(vector<int>& preorder, vector<int>& postorder) {

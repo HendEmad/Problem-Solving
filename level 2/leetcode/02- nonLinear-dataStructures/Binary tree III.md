@@ -83,40 +83,33 @@ public:
     void dfs(TreeNode* root, int currentDepth, int targetDepth, int val) {
         if (root == nullptr) return;
 
-        // Check if the current depth is the one just above the target depth
         if (currentDepth == targetDepth - 1) {
             TreeNode* leftSubTree = root->left;
             TreeNode* rightSubTree = root->right;
 
-            // Create new nodes to be inserted
             TreeNode* leftNewNode = new TreeNode(val);
             TreeNode* rightNewNode = new TreeNode(val);
 
-            // Insert the new nodes
             root->left = leftNewNode;
             root->right = rightNewNode;
 
-            // Attach the original subtrees to the new nodes
             leftNewNode->left = leftSubTree;
             rightNewNode->right = rightSubTree;
 
             return;
         }
 
-        // Continue to traverse the tree
         dfs(root->left, currentDepth + 1, targetDepth, val);
         dfs(root->right, currentDepth + 1, targetDepth, val);
     }
 
     TreeNode* addOneRow(TreeNode* root, int val, int depth) {
-        // Special case: if the new row needs to be added at the root
         if (depth == 1) {
             TreeNode* newNode = new TreeNode(val);
             newNode->left = root;
             return newNode;
         }
 
-        // Use DFS to add the row at the correct depth
         dfs(root, 1, depth, val);
         return root;
     }
@@ -149,16 +142,24 @@ public:
         while(!q.empty()){
             TreeNode* current = q.front();
             q.pop();
+
             if(current->left){
                 if(end){return false;}
                 q.push(current->left);
             }
-            else{end = true;}
+
+            else
+                end = true;
+
             if(current->right){
-                if(end){return false;}
+                if(end)
+                    return false;
+
                 q.push(current->right);
             }
-            else{end = true;}
+
+            else 
+                end = true;
         }
         return true;
     }
@@ -184,32 +185,44 @@ public:
 class Solution {
 public:
     bool isEvenOddTree(TreeNode* root) {
-        if(root==NULL) return false;
+        if(root==NULL) 
+            return false;
+        
         queue<TreeNode*> q;
         q.push(root);
+        
         int c=0;
         while(!q.empty()){
             int size = q.size();
             vector<int> check;
-            for(int i=0;i<size;i++){
+            for(int i = 0; i < size ; i++){
                 TreeNode* node = q.front();
                 q.pop();
-                if(c%2!=0&&node->val%2!=0) return false;
-                if(c%2==0&&node->val%2==0) return false;
+         
+                if(c % 2 != 0 && node -> val % 2 != 0) 
+                    return false;
+                
+                if(c % 2 == 0 && node-> val % 2 == 0) 
+                    return false;
+                
                 check.push_back(node->val);
-                if(node->left!=NULL) q.push(node->left);
-                if(node->right!=NULL) q.push(node->right);
+                if(node-> left != NULL) 
+                    q.push(node-> left);
+
+                if(node-> right != NULL) 
+                    q.push(node-> right);
             }
-            if(c%2==0){
-                for(int i=0;i<check.size()-1;i++){
-                    if(check[i]>=check[i+1]) return false;
-                }
-            }
-            else{
-                for(int i=0;i<check.size()-1;i++){
-                    if(check[i]<=check[i+1]) return false;
-                }
-            }
+
+            if(c % 2 == 0)
+                for(int i = 0; i < check.size() - 1; i++)
+                    if(check[i] >= check[i+1]) 
+                        return false;
+                
+            else
+                for(int i=0;i<check.size()-1;i++)
+                    if(check[i]<=check[i+1]) 
+                        return false;
+            
             c++;
         }
         return true;
@@ -224,31 +237,32 @@ public:
 ```cpp
 class Solution {
 public:
-    // Vector to store the values of nodes in sorted order
     vector<int> nums;
     
-    //  function to perform inorder traversal and store the values in the vector
     void inorderTraversal(TreeNode* root) {
-        if (!root) return;
+        if (!root) 
+            return;
+        
         inorderTraversal(root->left);  
         nums.push_back(root->val);     
         inorderTraversal(root->right); 
     }
 
-    // function to convert a sorted array to a balanced BST
     TreeNode* sortedArrayToBST(int start, int end) {
-        if (start > end) return nullptr;  // Base case: no elements to construct the subtree
-        int mid = start + (end - start) / 2;  // Find the middle element
-        TreeNode* node = new TreeNode(nums[mid]);  // Create a new node with the middle element
-        node->left = sortedArrayToBST(start, mid - 1);  // Recursively construct the left subtree
-        node->right = sortedArrayToBST(mid + 1, end);   // Recursively construct the right subtree
-        return node;  // Return the constructed subtree
+        if (start > end) 
+            return nullptr; 
+        
+        int mid = start + (end - start) / 2; 
+        TreeNode* node = new TreeNode(nums[mid]);  
+        node->left = sortedArrayToBST(start, mid - 1); 
+        node->right = sortedArrayToBST(mid + 1, end);  
+        return node;
     }
     
     
     TreeNode* balanceBST(TreeNode* root) {
-        inorderTraversal(root);  // Step 1: Perform inorder traversal to get sorted node values
-        return sortedArrayToBST(0, nums.size() - 1);  // Step 2: Construct a balanced BST from the sorted values
+        inorderTraversal(root);  
+        return sortedArrayToBST(0, nums.size() - 1);  
     }
 };
 ```
@@ -279,7 +293,7 @@ class Solution {
             return true;
 
         if(root1->val!=root2->val)
-        return false;
+            return false;
 
         bool a=f(root1->left,root2->left);
         bool b=f(root1->right,root2->right);
@@ -313,24 +327,26 @@ public:
  */
 class Solution {
 public:
-void inorder(TreeNode* root, set<int>& unique_vals) {
-        if (root == nullptr) return;
-        
+    void inorder(TreeNode* root, set<int>& unique_vals) {
+        if (root == nullptr) 
+            return;
+            
         inorder(root->left, unique_vals);
         unique_vals.insert(root->val);
         inorder(root->right, unique_vals);
     }
+
     int findSecondMinimumValue(TreeNode* root) {
-     set<int> unique_vals;
-        inorder(root, unique_vals);
+    set<int> unique_vals;
+    inorder(root, unique_vals);
         
-        // If there are less than 2 unique values, return -1
-        if (unique_vals.size() < 2) return -1;
+    if(unique_vals.size() < 2) 
+        return -1;
         
-        // Return the second smallest element
-        auto it = unique_vals.begin();
-        ++it; // Move iterator to the second element
-        return *it;
+    auto it = unique_vals.begin();
+    ++it;
+    
+    return *it;
     }
 };
 ```
@@ -344,11 +360,10 @@ class Solution {
 public:
     string makeLargestSpecial(string s) {
         if(s.length()==0)
-            return ""; //return null string if size is zero
+            return "";
 
-        vector<string> ans; //list to store all current special substrings
-        int count=0,i=0; //keep track of special substring starting index using "i" and 
-                         //"count" to keep the track of special substring is over or not
+        vector<string> ans; 
+        int count=0,i=0;
 
         for(int j=0;j<s.size();j++){
             if(s[j] == '1')
@@ -356,17 +371,16 @@ public:
             else
                 count--;
             if(count==0){
-                //call recursively using mid special substring
                 ans.push_back('1' + makeLargestSpecial(s.substr(i+1,j-i-1)) + '0');
                 i = j+1;
             }
         }
-        //sort current substring stored list to fulfill the question demand
+
         sort(ans.begin(),ans.end(),greater<string>());
         string finalString = "";
-        for(i=0;i<ans.size();i++){
+        for(i=0;i<ans.size();i++)
             finalString += ans[i];
-        }
+        
         return finalString;
     }
 };
@@ -385,9 +399,9 @@ public:
         for(char c : text)
             freq[c]++;
 
-         int minfreq=min({freq['b'],freq['a'],freq['l']/2,freq['o']/2,freq['n']});
+        int minfreq=min({freq['b'],freq['a'],freq['l']/2,freq['o']/2,freq['n']});
 
-         return minfreq;
+        return minfreq;
     }
 };
 ```
@@ -405,17 +419,17 @@ public:
             a /= 2;
             level++;
         }
+
         vector<int> ans(level);
         ans[level - 1] = label;
         for(int i = level - 1 ; i > 0 ; i--){
-            // To find biggest value in prev level 
             int maxi = pow(2,i) - 1;
-            // To find smallest value in prev level
             int mini = pow(2,i-1);
             int parent = maxi + mini - label/2;
             ans[i - 1] = parent;
             label = parent;
         }
+
         return ans;
     }
 };
@@ -453,6 +467,7 @@ public:
     int tribonacci(int n) {
         if(n == 0)
             return 0;
+
         else if(n == 1 || n == 2)
             return 1;
 
@@ -492,6 +507,7 @@ public:
     vector<TreeNode*> allPossibleFBT(int n) {
         if(n == 0)
             return {};
+        
         if(n == 1)
             return {new TreeNode(0)};
         
