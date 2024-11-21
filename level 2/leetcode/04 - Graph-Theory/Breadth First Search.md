@@ -25,11 +25,13 @@ public:
 class Solution {
 public:
     int maxDepth(Node* root) {
-        if (!root) return 0;
+        if (!root)  
+            return 0;
+        
         int depth = 0;
-        for (Node* child : root->children) {
-            depth = std::max(depth, maxDepth(child));
-        }
+        for (Node* child : root->children) 
+            depth = max(depth, maxDepth(child));
+        
         return depth + 1;
     }
 };
@@ -54,9 +56,8 @@ class Solution {
 public:
     int getImportance(vector<Employee*> employees, int id) {
         unordered_map<int, Employee*> employeeMap;
-        for (auto employee : employees) {
+        for (auto employee : employees) 
             employeeMap[employee->id] = employee;
-        }
         
         return dfs(employeeMap, id);
     }
@@ -65,9 +66,9 @@ private:
     int dfs(unordered_map<int, Employee*>& employeeMap, int id) {
         Employee* employee = employeeMap[id];
         int totalImportance = employee->importance;
-        for (int subordinate : employee->subordinates) {
+        for (int subordinate : employee->subordinates) 
             totalImportance += dfs(employeeMap, subordinate);
-        }
+        
         return totalImportance;
     }
 };
@@ -94,16 +95,21 @@ public:
     bool isCousins(TreeNode* root, int x, int y) {
         pair<TreeNode*, int> infoX = findParentAndDepth(root, nullptr, x, 0);
         pair<TreeNode*, int> infoY = findParentAndDepth(root, nullptr, y, 0);
-        return infoX.first != infoY.first && infoX.second == infoY.second;
+        
+        return (infoX.first != infoY.first && infoX.second == infoY.second);
     }
 
 private:
     pair<TreeNode*, int> findParentAndDepth(TreeNode* node, TreeNode* parent, int value, int depth) {
-        if (!node) return {nullptr, -1};
-        if (node->val == value) return {parent, depth};
+        if (!node) 
+            return {nullptr, -1};
+        
+        if (node->val == value) 
+            return {parent, depth};
         
         pair<TreeNode*, int> left = findParentAndDepth(node->left, node, value, depth + 1);
-        if (left.first) return left;
+        if (left.first) 
+            return left;
         
         return findParentAndDepth(node->right, node, value, depth + 1);
     }
@@ -128,11 +134,15 @@ private:
 class Solution {
 public:
     TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
-        if (!original) return nullptr;
-        if (original == target) return cloned;
+        if (!original) 
+            return nullptr;
+        
+        if (original == target) 
+            return cloned;
         
         TreeNode* leftResult = getTargetCopy(original->left, cloned->left, target);
-        if (leftResult) return leftResult;
+        if (leftResult) 
+            return leftResult;
         
         return getTargetCopy(original->right, cloned->right, target);
     }
@@ -161,7 +171,8 @@ public:
 
 private:
     void dfs(vector<vector<char>>& board, int x, int y, int m, int n) {
-        if (x < 0 || x >= m || y < 0 || y >= n || board[x][y] != 'E') return;
+        if (x < 0 || x >= m || y < 0 || y >= n || board[x][y] != 'E')
+            return;
         
         int mines = countMines(board, x, y, m, n);
         if (mines > 0) {
@@ -170,11 +181,10 @@ private:
         }
         
         board[x][y] = 'B';
-        for (int dx = -1; dx <= 1; ++dx) {
-            for (int dy = -1; dy <= 1; ++dy) {
-                if (dx != 0 || dy != 0) dfs(board, x + dx, y + dy, m, n);
-            }
-        }
+        for (int dx = -1; dx <= 1; ++dx) 
+            for (int dy = -1; dy <= 1; ++dy) 
+                if (dx != 0 || dy != 0) 
+                    dfs(board, x + dx, y + dy, m, n);
     }
     
     int countMines(vector<vector<char>>& board, int x, int y, int m, int n) {
@@ -182,11 +192,11 @@ private:
         for (int dx = -1; dx <= 1; ++dx) {
             for (int dy = -1; dy <= 1; ++dy) {
                 int nx = x + dx, ny = y + dy;
-                if (nx >= 0 && nx < m && ny >= 0 && ny < n && board[nx][ny] == 'M') {
+                if (nx >= 0 && nx < m && ny >= 0 && ny < n && board[nx][ny] == 'M') 
                     ++mines;
-                }
             }
         }
+
         return mines;
     }
 };
@@ -207,8 +217,11 @@ public:
 
 private:
     bool dfs(vector<int>& arr, int index, vector<bool>& visited) {
-        if (index < 0 || index >= arr.size() || visited[index]) return false;
-        if (arr[index] == 0) return true;
+        if (index < 0 || index >= arr.size() || visited[index]) 
+            return false;
+        
+        if (arr[index] == 0) 
+            return true;
         
         visited[index] = true;
         bool canReachLeft = dfs(arr, index - arr[index], visited);
@@ -238,7 +251,8 @@ private:
 class Solution {
 public:
     int maxLevelSum(TreeNode* root) {
-        if (!root) return 0;
+        if (!root) 
+            return 0;
 
         queue<TreeNode*> q;
         q.push(root);
@@ -255,8 +269,11 @@ public:
 
                 levelSum += node->val;
 
-                if (node->left) q.push(node->left);
-                if (node->right) q.push(node->right);
+                if (node->left) 
+                    q.push(node->left);
+                
+                if (node->right) 
+                    q.push(node->right);
             }
 
             if (levelSum > maxSum) {
@@ -301,7 +318,8 @@ class Solution {
 public:
     vector<vector<int>> levelOrder(Node* root) {
         vector<vector<int>> result;
-        if (!root) return result;
+        if (!root) 
+            return result;
 
         queue<Node*> q;
         q.push(root);
@@ -315,9 +333,8 @@ public:
                 q.pop();
 
                 currentLevel.push_back(node->val);
-                for (Node* child : node->children) {
+                for (Node* child : node->children) 
                     q.push(child);
-                }
             }
 
             result.push_back(currentLevel);
@@ -352,7 +369,8 @@ public:
 
 private:
     pair<TreeNode*, int> dfs(TreeNode* node) {
-        if (!node) return {nullptr, 0};
+        if (!node) 
+            return {nullptr, 0};
 
         auto left = dfs(node->left);
         auto right = dfs(node->right);
@@ -429,7 +447,8 @@ class Solution {
 public:
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
         int n = grid.size();
-        if (grid[0][0] != 0 || grid[n - 1][n - 1] != 0) return -1;
+        if (grid[0][0] != 0 || grid[n - 1][n - 1] != 0) 
+            return -1;
 
         vector<vector<int>> directions = {
             {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}
@@ -444,7 +463,8 @@ public:
             q.pop();
             int distance = grid[x][y];
 
-            if (x == n - 1 && y == n - 1) return distance;
+            if (x == n - 1 && y == n - 1) 
+                return distance;
 
             for (const auto& dir : directions) {
                 int nx = x + dir[0], ny = y + dir[1];
@@ -485,13 +505,11 @@ public:
             visited[x][y] = true;
             for (auto& dir : directions[grid[x][y]]) {
                 int nx = x + dir.first, ny = y + dir.second;
-                if (nx >= 0 && nx < m && ny >= 0 && ny < n && !visited[nx][ny]) {
-                    for (auto& back : directions[grid[nx][ny]]) {
-                        if (nx + back.first == x && ny + back.second == y) {
-                            if (dfs(nx, ny)) return true;
-                        }
-                    }
-                }
+                if (nx >= 0 && nx < m && ny >= 0 && ny < n && !visited[nx][ny]) 
+                    for (auto& back : directions[grid[nx][ny]]) 
+                        if (nx + back.first == x && ny + back.second == y) 
+                            if (dfs(nx, ny)) 
+                                return true;
             }
             return false;
         };
@@ -521,7 +539,8 @@ class Solution {
 public:
     int pseudoPalindromicPaths(TreeNode* root) {
         function<int(TreeNode*, int)> dfs = [&](TreeNode* node, int count) {
-            if (!node) return 0;
+            if (!node) 
+                return 0;
             
             count ^= (1 << node->val);
             
