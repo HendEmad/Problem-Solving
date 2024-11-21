@@ -9,15 +9,14 @@ public:
         int count = 0;
 
         for (char c : s) {
-            if (c == 'L') {
+            if (c == 'L') 
                 balance++;
-            } else {
-                balance--;
-            }
 
-            if (balance == 0) {
+            else 
+                balance--;
+            
+            if (balance == 0) 
                 count++;
-            }
         }
 
         return count;
@@ -42,9 +41,10 @@ public:
             if (currentLen > maxLen) {
                 maxLen = currentLen; 
                 count = 1;           
-            } else if (currentLen == maxLen) {
+            } 
+            else if (currentLen == maxLen) 
                 count++;            
-            }
+
         }
 
         return count; 
@@ -86,11 +86,12 @@ public:
         int evenCount = 0;
 
         for (int pos : position) {
-            if (pos % 2 == 0) {
+            if (pos % 2 == 0) 
                 evenCount++;
-            } else {
+            
+            else 
                 oddCount++;
-            }
+            
         }
 
         return min(oddCount, evenCount);
@@ -136,13 +137,11 @@ public:
         int weeks = n / 7;
         int days = n % 7;
 
-        for (int i = 0; i < weeks; ++i) {
+        for (int i = 0; i < weeks; ++i) 
             total += (7 * (i + 1)) + 21;
-        }
 
-        for (int i = 0; i < days; ++i) {
+        for (int i = 0; i < days; ++i) 
             total += (weeks + 1) + i;
-        }
 
         return total;
     }
@@ -168,9 +167,8 @@ public:
             int stone2 = maxHeap.top();
             maxHeap.pop();
 
-            if (stone1 != stone2) {
+            if (stone1 != stone2) 
                 maxHeap.push(stone1 - stone2);
-            }
         }
 
         return maxHeap.empty() ? 0 : maxHeap.top();
@@ -212,12 +210,11 @@ public:
         int changesPattern1 = 0, changesPattern2 = 0;
 
         for (int i = 0; i < n; ++i) {
-            if (s[i] != (i % 2 == 0 ? '0' : '1')) {
+            if (s[i] != (i % 2 == 0 ? '0' : '1')) 
                 changesPattern1++;
-            }
-            if (s[i] != (i % 2 == 0 ? '1' : '0')) {
+            
+            if (s[i] != (i % 2 == 0 ? '1' : '0')) 
                 changesPattern2++;
-            }
         }
 
         return min(changesPattern1, changesPattern2);
@@ -243,7 +240,8 @@ public:
                 if (leftEmpty && rightEmpty) {
                     flowerbed[i] = 1; 
                     n--; 
-                    if (n == 0) return true;
+                    if (n == 0) 
+                        return true;
                 }
             }
         }
@@ -274,13 +272,11 @@ public:
         int sum = 0;
         int smallest = *min_element(nums.begin(), nums.end());
         
-        for (int num : nums) {
+        for (int num : nums) 
             sum += num;
-        }
         
-        if (k % 2 == 1) {
+        if (k % 2 == 1) 
             sum -= 2 * smallest;  
-        }
         
         return sum;
     }
@@ -298,21 +294,27 @@ public:
         int five = 0, ten = 0;
         
         for (int bill : bills) {
-            if (bill == 5) {
+            if (bill == 5) 
                 five++;
-            } else if (bill == 10) {
-                if (five == 0) return false;
+             
+            else if (bill == 10) {
+                if (five == 0) 
+                    return false;
+                
                 five--;
                 ten++;
-            } else {
+            } 
+            else {
                 if (ten > 0 && five > 0) {
                     ten--;
                     five--;
-                } else if (five >= 3) {
+                } 
+                
+                else if (five >= 3) 
                     five -= 3;
-                } else {
+                
+                 else 
                     return false;
-                }
             }
         }
         
@@ -333,7 +335,9 @@ public:
         sort(s.begin(), s.end());
         int i = 0, j = 0;
         while (i < g.size() && j < s.size()) {
-            if (s[j] >= g[i]) i++;
+            if (s[j] >= g[i]) 
+                i++;
+            
             j++;
         }
         return i;
@@ -349,10 +353,18 @@ public:
 class Solution {
 public:
     string maximumTime(string time) {
-        if (time[0] == '?') time[0] = (time[1] == '?' || time[1] <= '3') ? '2' : '1';
-        if (time[1] == '?') time[1] = (time[0] == '2') ? '3' : '9';
-        if (time[3] == '?') time[3] = '5';
-        if (time[4] == '?') time[4] = '9';
+        if (time[0] == '?') 
+            time[0] = (time[1] == '?' || time[1] <= '3') ? '2' : '1';
+        
+        if (time[1] == '?') 
+            time[1] = (time[0] == '2') ? '3' : '9';
+        
+        if (time[3] == '?') 
+            time[3] = '5';
+        
+        if (time[4] == '?') 
+            time[4] = '9';
+        
         return time;
     }
 };
@@ -389,11 +401,14 @@ public:
         int dirIndex = 0;
 
         for (int command : commands) {
-            if (command == -2) {
+            if (command == -2) 
                 dirIndex = (dirIndex + 3) % 4; // Turn left
-            } else if (command == -1) {
+            
+            else if (command == -1) 
                 dirIndex = (dirIndex + 1) % 4; // Turn right
-            } else {
+             
+            
+            else {
                 for (int k = 0; k < command; ++k) {
                     int newX = x + directions[dirIndex][0];
                     int newY = y + directions[dirIndex][1];
@@ -402,9 +417,11 @@ public:
                         x = newX;
                         y = newY;
                         maxDistance = max(maxDistance, x * x + y * y);
-                    } else {
+                    } 
+                    
+                    else 
                         break; 
-                    }
+                    
                 }
             }
         }
@@ -447,16 +464,13 @@ public:
         }
         
         std::unordered_map<int, int> languageCount;
-        for (int u : needToLearn) {
-            for (int lang : userLanguages[u]) {
+        for (int u : needToLearn) 
+            for (int lang : userLanguages[u]) 
                 languageCount[lang]++;
-            }
-        }
         
         int maxKnownLang = 0;
-        for (const auto& pair : languageCount) {
+        for (const auto& pair : languageCount) 
             maxKnownLang = std::max(maxKnownLang, pair.second);
-        }
         
         return needToLearn.size() - maxKnownLang;
     }
@@ -478,10 +492,13 @@ public:
             if (num == 0) {
                 positiveLen = 0;
                 negativeLen = 0;
-            } else if (num > 0) {
+            } 
+            else if (num > 0) {
                 positiveLen++;
-                if (negativeLen > 0) negativeLen++;
-            } else {
+                if (negativeLen > 0) 
+                    negativeLen++;
+            } 
+            else {
                 int temp = positiveLen;
                 positiveLen = (negativeLen > 0) ? negativeLen + 1 : 0;
                 negativeLen = temp + 1;
@@ -506,9 +523,12 @@ using namespace std;
 class Solution {
 public:
     bool canIWin(int maxChoosableInteger, int desiredTotal) {
-        if (desiredTotal <= 0) return true;
+        if (desiredTotal <= 0) 
+            return true;
+        
         int sum = (maxChoosableInteger * (maxChoosableInteger + 1)) / 2;
-        if (sum < desiredTotal) return false;
+        if (sum < desiredTotal) 
+            return false;
         
         unordered_map<int, bool> memo;
         vector<bool> used(maxChoosableInteger + 1, false);
@@ -518,7 +538,8 @@ public:
     
     bool canWin(int total, vector<bool>& used, unordered_map<int, bool>& memo, int maxChoosableInteger) {
         int key = getKey(used);
-        if (memo.find(key) != memo.end()) return memo[key];
+        if (memo.find(key) != memo.end()) 
+            return memo[key];
         
         for (int i = 1; i <= maxChoosableInteger; ++i) {
             if (!used[i]) {
@@ -538,9 +559,9 @@ public:
     
     int getKey(const vector<bool>& used) {
         int key = 0;
-        for (bool u : used) {
+        for (bool u : used) 
             key = (key << 1) | u;
-        }
+        
         return key;
     }
 };
@@ -561,12 +582,11 @@ public:
             return (a[0] - a[1]) < (b[0] - b[1]);
         });
         
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) 
             totalCost += costs[i][0];  
-        }
-        for (int i = n; i < 2 * n; ++i) {
+        
+        for (int i = n; i < 2 * n; ++i) 
             totalCost += costs[i][1];
-        }
         
         return totalCost;
     }
@@ -606,17 +626,16 @@ public:
         if (nums.size() % k != 0) return false;
         
         map<int, int> count;
-        for (int num : nums) {
+        for (int num : nums) 
             count[num]++;
-        }
         
         for (auto& [num, freq] : count) {
             if (freq > 0) {
                 int needed = freq;
                 for (int i = 0; i < k; ++i) {
-                    if (count[num + i] < needed) {
+                    if (count[num + i] < needed) 
                         return false;
-                    }
+                    
                     count[num + i] -= needed;
                 }
             }
@@ -635,7 +654,8 @@ public:
 class Solution {
 public:
     bool closeStrings(string word1, string word2) {
-        if (word1.size() != word2.size()) return false;
+        if (word1.size() != word2.size()) 
+            return false;
 
         vector<int> freq1(26, 0), freq2(26, 0);
         vector<int> char1(26, 0), char2(26, 0);
@@ -670,14 +690,14 @@ public:
         vector<bool> seen(26, false);  
         stack<char> st;  
         
-        for (int i = 0; i < s.size(); ++i) {
+        for (int i = 0; i < s.size(); ++i) 
             lastIndex[s[i] - 'a'] = i;
-        }
         
         for (int i = 0; i < s.size(); ++i) {
             char c = s[i];
             
-            if (seen[c - 'a']) continue; 
+            if (seen[c - 'a']) 
+                continue; 
             
             while (!st.empty() && st.top() > c && lastIndex[st.top() - 'a'] > i) {
                 seen[st.top() - 'a'] = false;  

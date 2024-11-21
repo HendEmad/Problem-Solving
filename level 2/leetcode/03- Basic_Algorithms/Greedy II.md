@@ -6,9 +6,9 @@ class Solution {
 public:
     int minPartitions(string n) {
         int max_digit = 0;
-        for(char c : n) {
+        for(char c : n) 
             max_digit = max(max_digit, c - '0');
-        }
+        
         return max_digit;
     }
 };
@@ -39,6 +39,7 @@ public:
             answer[i] += ops;
             if (boxes[i] == '1') 
                 ++count;
+
             ops += count;
         }
 
@@ -445,18 +446,18 @@ public:
             bool writeA = false;
             int len = result.length();
             
-            if (len >= 2 && result[len - 1] == result[len - 2]) {
+            if (len >= 2 && result[len - 1] == result[len - 2]) 
                 if (result[len - 1] == 'b')
                     writeA = true;
-            } else {
+            else 
                 if (a >= b)
                     writeA = true;
-            }
             
             if (writeA) {
                 result += 'a';
                 --a;
-            } else {
+            } 
+            else {
                 result += 'b';
                 --b;
             }
