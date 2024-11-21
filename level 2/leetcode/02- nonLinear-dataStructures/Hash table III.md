@@ -81,8 +81,10 @@ public:
             string qLower = to_lower(q);
             if(hs.count(q)) 
                 v.push_back(q);
+
             else if(hm1.count(qLower)) 
                 v.push_back(hm1[qLower]);
+
             else {
                 string cur = "";
                 for(auto ch : qLower) {
@@ -167,6 +169,7 @@ public:
                 while(r < row) 
                     ans += 'U', row--;
             }
+
             else{
                 while(r > row) 
                     ans += 'D', row++;
@@ -238,10 +241,9 @@ public:
     }
     
     void renew(string tokenId, int currentTime) {
-        if(m.find(tokenId) != m.end()) {
+        if(m.find(tokenId) != m.end()) 
             if(currentTime< m[tokenId].second)
                 m[tokenId] = {currentTime, currentTime + ttl};
-        }
     }
     
     int countUnexpiredTokens(int currentTime) {

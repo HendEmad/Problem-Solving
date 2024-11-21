@@ -44,10 +44,10 @@ public:
             wordCount[word]++;
 
         // find words that appear just once
-        for(auto& wc : wordCount) {
+        for(auto& wc : wordCount) 
             if(wc.second == 1)
                 res.push_back(wc.first);
-        }
+        
         return res;
     }
 };
@@ -101,13 +101,15 @@ public:
     bool search(string searchWord) {
         int length = searchWord.length();
         for(const string& word : words) {
-            if(word.length() != length) continue;
+            if(word.length() != length) 
+                continue;
 
             int diffCnt = 0;
             for(int i = 0; i < length; i++) {
                 if(searchWord[i] != word[i]) {
                     ++diffCnt;
-                    if(diffCnt > 1) break;
+                    if(diffCnt > 1) 
+                        break;
                 }
             }
 
@@ -167,9 +169,8 @@ public:
         
         for (const string& word : words) {
             unordered_map<char, int> wordCount;
-            for (char c : word) {
+            for (char c : word) 
                 wordCount[c]++;
-            }
             
             bool isCompleting = true;
             for (const auto& entry : licenseCount) {
@@ -208,10 +209,10 @@ public:
         }
         
         int result = 0;
-        for (auto& [product, count] : productCount) {
+        for (auto& [product, count] : productCount) 
             if(count > 1)
                 result += count * (count - 1) / 2 * 8;
-        }
+        
         return result;
     }
 };

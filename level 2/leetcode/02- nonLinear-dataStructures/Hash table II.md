@@ -84,8 +84,6 @@ public:
 <summary><strong><a href = "https://leetcode.com/problems/count-primes/description/">204. Count Primes</a></strong></summary>
 
 ```cpp
-//  Sieve of Eratosthenes algorithm
-
 class Solution {
 public:
     int countPrimes(int n) {
@@ -127,11 +125,9 @@ class Solution {
     }
 public:
 
-    // Encodes a URL to a shortened URL.
     string encode(string longUrl) {
-        if (longToShort.find(longUrl) != longToShort.end()) {
+        if (longToShort.find(longUrl) != longToShort.end()) 
             return longToShort[longUrl];
-        }
 
         string shortKey = getUniqueKey();
         string shortUrl = baseUrl + shortKey;
@@ -142,7 +138,6 @@ public:
         return shortUrl;
     }
 
-    // Decodes a shortened URL to its original URL.
     string decode(string shortUrl) {
         return shortToLong[shortUrl];
     }

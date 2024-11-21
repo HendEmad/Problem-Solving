@@ -187,6 +187,7 @@ public:
 
             neg[it.first / 2] -= neg[it.first];
             neg[it.first] = 0;
+
             if (neg[it.first / 2] == 0) 
                 neg.erase(it.first / 2);
             
@@ -223,7 +224,8 @@ public:
             if (map.find(name) == map.end()) {
                 map[name] = 1;
                 ans.push_back(name);
-            } else {
+            } 
+            else {
                 int count = map[name];
                 while (map.find(name + "(" + to_string(count) + ")") != map.end()) 
                     count++;
@@ -257,11 +259,13 @@ public:
                 count++;
                 p++;
                 q--;
-            } else if ((n[p] + n[q]) < k) {
+            } 
+            
+            else if ((n[p] + n[q]) < k) 
                 p++;
-            } else {
+            
+            else 
                 q--;
-            }
         }
         return count;
     }
@@ -282,10 +286,8 @@ public:
         sort(deliciousness.begin(),deliciousness.end());
         long long int count = 0;
 
-        for(int x : deliciousness)
-        {
-            if(x!=0)
-            {
+        for(int x : deliciousness) {
+            if(x!=0) {
                 double num = log2(x); 
                 if(floor(num) == num)
                     count += map1[0];
@@ -319,7 +321,8 @@ public:
             if(rains[i]==0) {
                 ss.insert(i);
                 res[i] = 1;
-            } else {
+            } 
+            else {
                 if(mp.count(rains[i])) {
                     int lastIndex = mp[rains[i]];
                     auto index = ss.upper_bound(lastIndex);
@@ -417,6 +420,7 @@ public:
 
         if (tmp -> p.first == key) 
             tmp -> p.second = value;
+        
         else 
             tmp -> next = new MyNode(key, value);
     }
