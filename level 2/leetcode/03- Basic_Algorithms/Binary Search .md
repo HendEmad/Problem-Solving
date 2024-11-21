@@ -13,6 +13,7 @@ public:
             int mid = (left + right) / 2;
             if(nums[mid] >= 0)
                 left = mid + 1;
+
             else if(nums[mid] < 0) {
                 cnt += (right - mid) + 1;
                 right = mid - 1;
@@ -23,9 +24,9 @@ public:
 
     int countNegatives(vector<vector<int>>& grid) {
         int res = 0;
-        for(int i = 0; i < grid.size(); i++) {
+        for(int i = 0; i < grid.size(); i++) 
             res += count_neg_numbers(grid[i]);
-        }
+        
         return res;
     }
 };
@@ -45,14 +46,14 @@ public:
 
         while(left <= right) {
             int mid = (right + left) / 2;
-            if(rows[mid] == 0) {
+            if(rows[mid] == 0) 
                 right = mid - 1;
-            }
-            else if(rows[mid] == 1) {
+            
+            else if(rows[mid] == 1) 
                 left = mid + 1;
-            }
+            
         }
-        return left;  // civilians_cnt
+        return left;  
     }
 
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
@@ -65,9 +66,9 @@ public:
         }
 
         sort(solider_cnt.begin(), solider_cnt.end());
-        for(int i = 0; i < k; i++) {
+        for(int i = 0; i < k; i++) 
             res.push_back(solider_cnt[i].second);
-        }
+        
         return res;
     }
 };
@@ -99,8 +100,10 @@ public:
             long value = guess(mid);
             if(value == 0)
                 return mid;
+
             else if(value == -1)
                 high = mid - 1;
+            
             else if(value == 1)
                 low = mid + 1;
         }
@@ -143,8 +146,10 @@ public:
             
             if(n < coins_num)
                 high = mid - 1;
+            
             else if (n > coins_num)
                 low = mid + 1;
+            
             else
                 return mid;
         }
@@ -178,10 +183,10 @@ public:
 class Solution {
 public:
     bool isPerfectSquare(int num) {
-        for(long i = 1; i <= num; i++) {
+        for(long i = 1; i <= num; i++) 
             if(i * i == num)
                 return true;
-        }
+
         return false;
     }
 };
@@ -244,6 +249,7 @@ public:
             int mid = (low + high) / 2;
             if(isBadVersion(mid))
                 high = mid;
+
             else
                 low = mid + 1;
         }
@@ -369,6 +375,7 @@ public:
                 }
                 else if(value < z)
                     low = mid + 1;
+             
                 else
                     high = mid - 1;
             }
@@ -404,19 +411,18 @@ public:
     vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) {
         int n = words.size();
         vector <int> words_freq(n);
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < n; i++) 
             words_freq[i] = calc_freq(words[i]);
-        }
 
         vector <int> res;
         for(const string& query : queries) {
             int query_freq = calc_freq(query);
             int cnt = 0;
 
-            for(int freq : words_freq) {
+            for(int freq : words_freq) 
                 if(query_freq < freq) 
                     cnt++;
-            }
+            
             res.push_back(cnt);
         }
         return res;
@@ -479,10 +485,10 @@ public:
                 required_days ++;
                 curr_weight = weight;              
                 if(required_days > days)
-                    return false;                                                         
-            } else {
+                    return false;      
+
+            } else 
                 curr_weight += weight;
-            }
         }
         return true;
     }
@@ -549,18 +555,15 @@ public:
         unordered_map<int, int> map;
         int n = size(nums1);
 
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
+        for(int i = 0; i < n; i++) 
+            for(int j = 0; j < n; j++) 
                 map[nums3[i] + nums4[j]]++;
-            }
-        }
 
         int cnt = 0; 
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
+        for(int i = 0; i < n; i++) 
+            for(int j = 0; j < n; j++) 
                 cnt += map[0 - (nums1[i] + nums2[j])];
-            }
-        }
+        
         return cnt;
     }
 };
@@ -595,9 +598,8 @@ public:
                 right = mid - 1;
         }
 
-        if (right < 0) {
+        if (right < 0) 
             return "";
-        }
 
         return values[right].second;
     }
