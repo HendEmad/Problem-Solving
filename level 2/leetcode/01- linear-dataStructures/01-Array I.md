@@ -25,7 +25,6 @@ public:
     }
 };
 ```
-
 </details>
 
 <details>
