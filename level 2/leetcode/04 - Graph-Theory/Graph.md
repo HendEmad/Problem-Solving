@@ -156,23 +156,34 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/keys-and-rooms/>keys and rooms</a></strong></summary>
 
 ```cpp
-
-```
-</details>
-
-<details>
-  <summary><strong><a href=https://leetcode.com/problems/parallel-courses/>parallel courses</a></strong></summary>
-
-```cpp
-
-```
-</details>
-
-<details>
-  <summary><strong><a href=https://leetcode.com/problems/connecting-cities-with-minimum-cost/>connecting cities with minimum cost</a></strong></summary>
-
-```cpp
-
+class Solution {
+public:
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        int n = rooms.size();
+        vector<bool> visited(n, false);
+        queue<int> q;
+        
+        visited[0] = true;
+        q.push(0);
+        
+        while (!q.empty()) {
+            int room = q.front();
+            q.pop();
+            
+            for (int key : rooms[room]) 
+                if (!visited[key]) {
+                    visited[key] = true;
+                    q.push(key);
+                }
+        }
+        
+        for (bool v : visited) 
+            if (!v) 
+                return false;
+        
+        return true;
+    }
+};
 ```
 </details>
 
@@ -180,15 +191,31 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/redundant-connection/>redundant connection</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        int n = edges.size();
+        vector<int> parent(n + 1);
+        
+        for (int i = 1; i <= n; ++i) 
+            parent[i] = i;
 
-```
-</details>
+        function<int(int)> find = [&](int node) -> int {  // -> return type
+            if (parent[node] != node)
+                parent[node] = find(parent[node]); // find calls itself recursively; needs access to the actual array
+            return parent[node];
+        };
 
-<details>
-  <summary><strong><a href=https://leetcode.com/problems/shortest-path-to-get-food/>shortest path to get food</a></strong></summary>
-
-```cpp
-
+        for (const auto& edge : edges) {
+            int u = edge[0], v = edge[1];
+            int rootU = find(u), rootV = find(v);
+            if (rootU == rootV) 
+                return edge; 
+            parent[rootU] = rootV; 
+        }
+        return {};
+    }
+};
 ```
 </details>
 
@@ -196,7 +223,30 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/count-servers-that-communicate/>count servers that communicate	</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int countServers(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        vector<int> rowCount(m, 0), colCount(n, 0);
+        int totalServers = 0;
 
+        for (int i = 0; i < m; ++i) 
+            for (int j = 0; j < n; ++j) 
+                if (grid[i][j] == 1) {
+                    rowCount[i]++;
+                    colCount[j]++;
+                    totalServers++;
+                }
+
+        int isolatedServers = 0;
+        for (int i = 0; i < m; ++i) 
+            for (int j = 0; j < n; ++j) 
+                if (grid[i][j] == 1 && rowCount[i] == 1 && colCount[j] == 1) 
+                    isolatedServers++;
+
+        return totalServers - isolatedServers;
+    }
+};
 ```
 </details>
 
@@ -204,7 +254,35 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/map-of-highest-peak/>map of highest peak</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    vector<vector<int>> highestPeak(vector<vector<int>>& isWater) {
+        int m = isWater.size(), n = isWater[0].size();
+        vector<vector<int>> height(m, vector<int>(n, -1));
+        queue<pair<int, int>> q;
 
+        for (int i = 0; i < m; ++i) 
+            for (int j = 0; j < n; ++j) 
+                if (isWater[i][j] == 1) {
+                    height[i][j] = 0;
+                    q.push({i, j});
+                }
+
+        vector<pair<int, int>> directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        while (!q.empty()) {
+            auto [x, y] = q.front();
+            q.pop();
+            for (auto [dx, dy] : directions) {
+                int nx = x + dx, ny = y + dy;
+                if (nx >= 0 && nx < m && ny >= 0 && ny < n && height[nx][ny] == -1) {
+                    height[nx][ny] = height[x][y] + 1;
+                    q.push({nx, ny});
+                }
+            }
+        }
+        return height;
+    }
+};
 ```
 </details>
 
@@ -212,7 +290,39 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/path-with-minimum-effort/>path with minimum effort</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int minimumEffortPath(vector<vector<int>>& heights) {
+        int rows = heights.size(), cols = heights[0].size();
+        vector<vector<int>> effort(rows, vector<int>(cols, INT_MAX));
+        vector<pair<int, int>> directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<>> pq;
 
+        effort[0][0] = 0;
+        pq.push({0, {0, 0}});
+
+        while (!pq.empty()) {
+            auto [currEffort, cell] = pq.top();
+            pq.pop();
+
+            int x = cell.first, y = cell.second;
+            if (x == rows - 1 && y == cols - 1) 
+                return currEffort;
+
+            for (auto [dx, dy] : directions) {
+                int nx = x + dx, ny = y + dy;
+                if (nx >= 0 && nx < rows && ny >= 0 && ny < cols) {
+                    int newEffort = max(currEffort, abs(heights[nx][ny] - heights[x][y]));
+                    if (newEffort < effort[nx][ny]) {
+                        effort[nx][ny] = newEffort;
+                        pq.push({newEffort, {nx, ny}});
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+};
 ```
 </details>
 
