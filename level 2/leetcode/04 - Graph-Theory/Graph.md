@@ -330,15 +330,37 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/is-graph-bipartite/>is graph bipartite</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n = graph.size();
+        vector<int> color(n, -1);
 
-```
-</details>
+        for(int i = 0; i < n; i++) {
+            if(color[i] == -1) {
+                queue<int> q;
+                q.push(i);
+                color[i] = 0;
 
-<details>
-  <summary><strong><a href=https://leetcode.com/problems/minimum-path-cost-in-a-hidden-grid/>minimum path cost in a hidden grid</a></strong></summary>
+                while(!q.empty()) {
+                    int node = q.front();
+                    q.pop();
 
-```cpp
-
+                    for(int neighbor: graph[node]) {
+                        if(color[neighbor] == -1) {
+                            color[neighbor] = 1 - color[node];
+                            q.push(neighbor);
+                        }
+                        else if(color[neighbor] == color[node]) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+};
 ```
 </details>
 
@@ -346,7 +368,29 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/maximal-network-rank/>maximal network rank</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int maximalNetworkRank(int n, vector<vector<int>>& roads) {
+        vector<int> degree(n, 0);
+        vector<vector<bool>> connected(n, vector<bool>(n, false));
 
+        for(const auto& road : roads) {
+            int u = road[0], v = road[1];
+            degree[u] ++;
+            degree[v] ++;
+            connected[u][v] = connected[v][u] = true;
+        }
+
+        int max_rank = 0;
+        for(int i = 0; i < n; i++) {
+            for(int j = i + 1; j < n; j++) {
+                int rank = degree[i] + degree[j] - (connected[i][j] ? 1 : 0);
+                max_rank = max(max_rank, rank);
+            }
+        }
+        return max_rank;
+    }
+};
 ```
 </details>
 
