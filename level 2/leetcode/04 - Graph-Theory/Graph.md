@@ -395,18 +395,39 @@ public:
 </details>
 
 <details>
-  <summary><strong><a href=https://leetcode.com/problems/path-with-maximum-minimum-value/>path with maximum minimum value</a></strong></summary>
-
-```cpp
-
-```
-</details>
-
-<details>
   <summary><strong><a href=https://leetcode.com/problems/find-eventual-safe-states/>find eventual safe states</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        int n = graph.size();
+        vector<int> state(n, 0); 
+        vector<int> result;
 
+        function<bool(int)> dfs = [&](int node) {
+            if (state[node] > 0) 
+                return state[node] == 2;
+            
+            state[node] = 1; 
+            for (int neighbor : graph[node]) {
+                if (state[neighbor] == 2) 
+                    continue; 
+                if (state[neighbor] == 1 || !dfs(neighbor)) 
+                    return false; 
+            }
+            state[node] = 2; 
+            return true;
+        };
+
+        for (int i = 0; i < n; ++i) {
+            if (dfs(i)) 
+                result.push_back(i);
+        }
+
+        return result;
+    }
+};
 ```
 </details>
 
@@ -414,7 +435,37 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/pyramid-transition-matrix/>pyramid transition matrix</a></strong></summary>
 
 ```cpp
+class Solution {
+    unordered_map<string,vector<char> > m;
 
+public:
+    bool dfs(string bot,int i,string tem){
+        if(bot.size()==1) 
+            return true;
+        
+        if(i==bot.size()-1) {
+            string st;
+            return dfs(tem,0,st);
+        }
+
+        for(auto v:m[bot.substr(i,2)]){
+            tem.push_back(v);
+            if(dfs(bot,i+1,tem))
+                return true;
+            
+            tem.pop_back();
+        }
+        return false;
+    }
+    
+    bool pyramidTransition(string bottom, vector<string>& allowed) {
+        for(auto a:allowed)
+            m[a.substr(0,2)].push_back(a[2]);
+        
+        string te;
+        return dfs(bottom,0,te);
+    }
+};
 ```
 </details>
 
