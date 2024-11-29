@@ -473,6 +473,40 @@ public:
   <summary><strong><a href=https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/>most stones removed with same row or column</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int removeStones(vector<vector<int>>& stones) {
+        unordered_map<int, vector<int>> rowMap, colMap;
+        unordered_set<int> visited;
 
+        for (int i = 0; i < stones.size(); ++i) {
+            rowMap[stones[i][0]].push_back(i);
+            colMap[stones[i][1]].push_back(i);
+        }
+
+        function<void(int)> dfs = [&](int idx) {
+            if (visited.count(idx)) 
+                return;
+            visited.insert(idx);
+
+            for (int neighbor : rowMap[stones[idx][0]]) 
+                dfs(neighbor);
+            
+            for (int neighbor : colMap[stones[idx][1]]) 
+                dfs(neighbor);
+            
+        };
+
+        int numOfConnectedComponents = 0;
+        for (int i = 0; i < stones.size(); ++i) 
+            if (!visited.count(i)) {
+                ++numOfConnectedComponents;
+                dfs(i);
+            }
+        
+
+        return stones.size() - numOfConnectedComponents;
+    }
+};
 ```
 </details>
