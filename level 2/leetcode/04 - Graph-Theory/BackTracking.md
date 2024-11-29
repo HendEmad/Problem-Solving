@@ -2,7 +2,23 @@
   <summary><strong><a href=https://leetcode.com/problems/count-of-matches-in-tournament/>count of matches in tournament</a></strong></summary>
 
 ```cpp
-
+class Solution {
+public:
+    int numberOfMatches(int n) {
+        int matches = 0;
+        while(n > 1) {
+            if(n % 2 == 0) {
+                matches = matches + n / 2;
+                n /= 2;
+            }
+            else {
+                matches = matches + (n - 1) / 2;
+                n = ((n - 1) / 2) + 1;
+            }
+        }
+        return matches;
+    }
+};
 ```
 </details>
 
@@ -10,7 +26,24 @@
   <summary><strong><a href=https://leetcode.com/problems/sum-of-all-subset-xor-totals/>sum of all subset xor totals</a></strong></summary>
 
 ```cpp
+class Solution {
+public:
+    int subsetXORSum(vector<int>& nums) {
+        int total_xor_sum = 0;
+        int n = nums.size();
+        int subsets = 1 << n;
 
+        for(int i = 0; i < subsets; i++) {
+            int current_xor = 0;
+            for(int j = 0; j < n; j++) 
+                if(i & (1 << j)) 
+                    current_xor ^= nums[j];
+            
+            total_xor_sum += current_xor;
+        }
+        return total_xor_sum;
+    }
+};
 ```
 </details>
 
@@ -18,7 +51,26 @@
   <summary><strong><a href=https://leetcode.com/problems/binary-watch/>binary watch</a></strong></summary>
 
 ```cpp
+'''
+__builtin_popcount(h) --> counts no.of LEDs that are on in the hour (h)
+__builtin_popcount(m) --> counts no.of LEDs that are on in the minutes (m)
+'''
+class Solution {
+public:
+    vector<string> readBinaryWatch(int turnedOn) {
+        vector<string> res;
 
+        for(int h = 0; h < 12; h++) {
+            for(int m = 0; m < 60; m++) {
+                if(__builtin_popcount(h) + __builtin_popcount(m) == turnedOn)
+                    res.push_back(to_string(h) + ":" + 
+                                 (m < 10 ? "0" : "") + 
+                                 (to_string(m)));
+            }
+        }
+        return res;
+    }
+};
 ```
 </details>
 
