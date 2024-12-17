@@ -391,11 +391,123 @@
   <summary>C++ solution</summary>
 
   ```cpp
+  // O(1) memory complexity
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int m = size(matrix), n = size(matrix[0]);
+        bool first_row_zero = false, first_col_zero = false;
+
+        for(int i = 0; i < m; i++) 
+            if(matrix[i][0] == 0)
+                first_col_zero = true;
+
+        for(int j = 0; j < n; j++)
+            if(matrix[0][j] == 0)
+                first_row_zero = true;
+
+        for(int i = 1; i < m; i++) 
+            for(int j = 1; j < n; j++) 
+                if(matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+
+        for(int i = 1; i < m; i++) 
+            for(int j = 1; j < n; j++) 
+                if(matrix[i][0] == 0 or matrix[0][j] == 0) 
+                    matrix[i][j] = 0;
+
+        if(first_col_zero) 
+            for(int i = 0; i < m; i++) 
+                matrix[i][0] = 0;
+
+        if(first_row_zero) 
+            for(int j = 0; j < n; j++) 
+                matrix[0][j] = 0;
+    }
+};
+
+// ----------------------------------------------------------------------------------------
+// O(m + n) memory complexity
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int m = size(matrix), n = size(matrix[0]);
+        vector <int> zero_rows (m, 0);
+        vector <int> zero_cols (n, 0);
+
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(matrix[i][j] == 0) 
+                    zero_rows[i] = zero_cols[j] = 1;
+            }
+        }
+
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(zero_rows[i] || zero_cols[j])
+                    matrix[i][j] = 0;
+            }
+        }
+    }
+};
+// -----------------------------------------------------------------------------------------
+// O(m*n) memory complexity
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int m = size(matrix), n = size(matrix[0]);
+        bool zero_rows = false, zero_cols = false;
+        vector<vector<int>> copy = matrix;
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(copy[i][j] == 0) {
+                    for(int k = 0; k < m; k++)
+                        matrix[k][j] = 0;
+                    for(int k = 0; k < n; k++)
+                        matrix[i][k] = 0;
+                }
+            }
+        }
+    }
+};
   ```
 
   <summary>Python solution</summary>
 
   ```python
+  class Solution(object):
+    def setZeroes(self, matrix):
+        m, n = len(matrix), len(matrix[0])
+        first_row_zero = first_col_zero = False
+
+        for i in range (m):
+            if matrix[i][0] == 0:
+                first_col_zero = True;
+
+        for j in range (n):
+            if matrix[0][j] == 0:
+                first_row_zero = True;
+
+        for i in range (1, m):
+            for j in range (1, n):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = 0
+                    matrix[0][j] = 0
+
+        for i in range (1, m):
+            for j in range (1, n):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+
+        if first_col_zero:
+            for i in range (m):
+                matrix[i][0] = 0
+
+        if first_row_zero:
+            for j in range (n):
+                matrix[0][j] = 0        
   ```
 </details>
 
@@ -405,11 +517,65 @@
   <summary>C++ solution</summary>
 
   ```cpp
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* head = new ListNode();
+        ListNode* curr = head;
+        int carry = 0;
+
+        while(l1 or l2 or carry) {
+            int v1 = l1 ? l1 -> val : 0;
+            int v2 = l2 ? l2 -> val : 0;
+            
+            int val = v1 + v2 + carry;
+            carry = val / 10;
+            val %= 10;
+
+            curr -> next = new ListNode(val);
+            curr = curr -> next;
+            l1 = l1 ? l1 -> next : nullptr;
+            l2 = l2 ? l2 -> next : nullptr;
+        }
+        return head -> next;
+    }
+};
   ```
 
   <summary>Python solution</summary>
 
   ```python
+  class Solution(object):
+    def setZeroes(self, matrix):
+        m, n = len(matrix), len(matrix[0])
+        first_row_zero = first_col_zero = False
+
+        for i in range (m):
+            if matrix[i][0] == 0:
+                first_col_zero = True;
+
+        for j in range (n):
+            if matrix[0][j] == 0:
+                first_row_zero = True;
+
+        for i in range (1, m):
+            for j in range (1, n):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = 0
+                    matrix[0][j] = 0
+
+        for i in range (1, m):
+            for j in range (1, n):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+
+        if first_col_zero:
+            for i in range (m):
+                matrix[i][0] = 0
+
+        if first_row_zero:
+            for j in range (n):
+                matrix[0][j] = 0        
   ```
 </details>
 
@@ -419,11 +585,70 @@
   <summary>C++ solution</summary>
 
   ```cpp
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        heap_sort(nums, size(nums));
+    }
+
+private:
+    void heapify(vector<int> &arr, int size_, int root) {
+        int j = -1;
+        while (root != j) {
+            j = root;
+            int left_idx  = 2 * root + 1;
+            int right_idx = 2 * root + 2;
+            if (left_idx < size_ and arr[left_idx] > arr[root])
+                root = left_idx;
+            if (right_idx < size_ and arr[right_idx] > arr[root])
+                root = right_idx;
+            swap(arr[root], arr[j]);
+        }
+    }
+
+    void build_heap(vector<int>& arr, int size_) {
+        for(int i = size_ / 2 - 1; i >= 0; i--)
+            heapify(arr, size_, i);
+    }
+
+    void heap_sort(vector<int>& arr, int size_) {
+        build_heap(arr, size_);
+        for(int i = size_ - 1; i >= 0; i--) {
+            swap(arr[0], arr[i]);
+            heapify(arr, i, 0);
+        }
+    }
+};
   ```
 
   <summary>Python solution</summary>
 
   ```python
+  class Solution(object):
+    def sortColors(self, nums):
+        def heapify(arr, size, root):
+            j = -1
+            while root != j:
+                j = root
+                left_idx = 2 * root + 1
+                right_idx = 2 * root + 2
+                if left_idx < size and arr[left_idx] > arr[root]:
+                    root = left_idx
+                if right_idx < size and arr[right_idx] > arr[root]:
+                    root = right_idx
+                arr[root], arr[j] = arr[j], arr[root]
+
+        def build_heap(arr, size):
+            for i in range (size // 2 - 1, -1, -1):
+                heapify(arr, size, i)
+        
+        def heap_sort(arr, size):
+            build_heap(arr, size)
+            for i in range(size - 1, -1, -1):
+                arr[0], arr[i] = arr[i], arr[0]
+                heapify(arr, i, 0)
+
+        heap_sort(nums, len(nums))
   ```
 </details>
 
