@@ -1196,15 +1196,34 @@ class Result {
 
 </details>
 
-## ProblemName
-Problem Link: ProblemLink
+## Candies
+Problem Link: https://hackerrank.com/challenges/candies/problem
 
 <picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
 <details>
     <summary>C Solution</summary>
 
 ```c
-
+long candies(int n, int arr_count, int* arr) {
+    int* candy = (int*)malloc(n * sizeof(int));
+    for (int i = 0; i < n; i++)
+        candy[i] = 1;
+        
+    for(int i = 1; i < n; i++)
+        if(arr[i] > arr[i - 1])
+            candy[i] = candy[i - 1] + 1;
+            
+    for(int i = n - 2; i >= 0; i--)
+        if (arr[i] > arr[i + 1] && candy[i] <= candy[i + 1])
+            candy[i] = candy[i + 1] + 1;
+            
+    long total = 0;
+    for(int i = 0; i < n; i++)
+        total += candy[i];
+        
+    free(candy);
+    return total;
+}
 ```
 
 </details>
@@ -1213,7 +1232,21 @@ Problem Link: ProblemLink
     <summary>C++ Solution</summary>
 
 ```cpp
-
+long candies(int n, vector<int> arr) {
+    vector<int> candy(n, 1);
+    for(int i = 1; i < n; i++) 
+        if(arr[i] > arr[i-1])
+            candy[i] = candy[i-1] + 1;
+    for(int i = n -2; i >= 0; i--)
+        if(arr[i] > arr[i+1] && candy[i] <= candy[i+1])
+            candy[i] = candy[i+1] + 1;
+    
+    long total = 0;
+    for(int c : candy)
+        total += c;
+    
+    return total;
+}
 ```
 
 </details>
@@ -1222,16 +1255,16 @@ Problem Link: ProblemLink
     <summary>Python Solution</summary>
 
 ```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
+def candies(n, arr):
+    candy = [1] * n
+    for i in range(1,n):
+        if arr[i] > arr[i-1]:
+            candy[i] = candy[i-1] + 1
+            
+    for i in range(n-2, -1, -1):
+        if arr[i] > arr[i+1] and candy[i] <= candy[i+1]:
+            candy[i] = candy[i+1] + 1
+    return sum(candy)
 ```
 
 </details>
@@ -1240,29 +1273,51 @@ Problem Link: ProblemLink
     <summary>Java Solution</summary>
 
 ```java
-
+class Result {
+    public static long candies(int n, List<Integer> arr) {
+        int[] candy = new int[n];
+        Arrays.fill(candy, 1);
+        
+        for(int i = 1; i < n; i++)
+            if (arr.get(i) > arr.get(i - 1))
+                candy[i] = candy[i - 1] + 1;
+                
+        for (int i = n - 2; i >= 0; i--) 
+            if (arr.get(i) > arr.get(i + 1) && candy[i] <= candy[i + 1])
+                candy[i] = candy[i + 1] + 1;
+                
+        long total = 0;
+        for (int c  : candy)
+            total += c;
+            
+        return total;
+    }
+}
 ```
 
 </details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
 
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
+## Greedy Florist
+Problem Link: https://hackerrank.com/challenges/greedy-florist/problem
 
 <picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
 <details>
     <summary>C Solution</summary>
 
 ```c
+int cmp(const void* a, const void* b) {
+    return (*(int*)b - *(int*)a);
+}
 
+int getMinimumCost(int k, int c_count, int* c) {
+    qsort(c, c_count, sizeof(int), cmp);
+    
+    int cost = 0;
+    for(int i = 0; i < c_count; i++)
+        cost += (i / k + 1) * c[i];
+    
+    return cost; 
+}
 ```
 
 </details>
@@ -1271,7 +1326,14 @@ Problem Link: ProblemLink
     <summary>C++ Solution</summary>
 
 ```cpp
-
+int getMinimumCost(int k, vector<int> c) {
+    sort(c.begin(), c.end(), greater<int>());
+    int cost = 0;
+    for(int i = 0; i < c.size(); i++) 
+        cost += (i / k + 1) * c[i];
+        
+    return cost;
+}
 ```
 
 </details>
@@ -1280,16 +1342,12 @@ Problem Link: ProblemLink
     <summary>Python Solution</summary>
 
 ```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
+def getMinimumCost(k, c):
+    c.sort(reverse=True)
+    cost = 0
+    for i, price in enumerate(c):
+        cost += (i // k + 1) * price;
+    return cost
 ```
 
 </details>
@@ -1298,29 +1356,43 @@ Problem Link: ProblemLink
     <summary>Java Solution</summary>
 
 ```java
-
+static int getMinimumCost(int k, int[] c) {
+        Arrays.sort(c);
+        int cost = 0;
+        int n = c.length;
+        
+        for(int i = 0; i < n; i++) {
+            cost += (i / k + 1) * c[n - i - 1];
+        }
+        return cost;
+    }
 ```
 
 </details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
 
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
+## Max Min
+Problem Link: https://hackerrank.com/challenges/angry-children/problem
 
 <picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
 <details>
     <summary>C Solution</summary>
 
 ```c
+int cmp(const void *a, const void *b) {
+    return (*(int*)a - *(int*)b);
+}
 
+int maxMin(int k, int arr_count, int* arr) {
+    qsort(arr, arr_count, sizeof(int), cmp);
+    
+    int min_diff = INT_MAX;
+    for(int i = 0; i <= arr_count - k; i++) {
+        int diff = arr[i + k - 1] - arr[i];
+        if (diff < min_diff)
+            min_diff = diff;
+    }
+    return min_diff;
+}
 ```
 
 </details>
@@ -1329,7 +1401,16 @@ Problem Link: ProblemLink
     <summary>C++ Solution</summary>
 
 ```cpp
-
+int maxMin(int k, vector<int> arr) {
+    sort(arr.begin(), arr.end());
+    int res = INT_MAX;
+    
+    for(int i = 0; i <= arr.size() - k; i++) {
+        int x = arr[i+k-1] - arr[i];
+        res = min(res, x);
+    }
+    return res;
+}
 ```
 
 </details>
@@ -1338,16 +1419,15 @@ Problem Link: ProblemLink
     <summary>Python Solution</summary>
 
 ```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
+def maxMin(k, arr):
+    arr.sort()
+    res = float('inf')
+    
+    for i in range (len(arr) - k + 1):
+        x = arr[i+k-1] - arr[i]
+        res = min(res, x)
+    
+    return res
 ```
 
 </details>
@@ -1356,29 +1436,61 @@ Problem Link: ProblemLink
     <summary>Java Solution</summary>
 
 ```java
-
+class Result {
+    public static int maxMin(int k, List<Integer> arr) {
+        Collections.sort(arr);
+        int min_diff = Integer.MAX_VALUE;
+        
+        for (int i = 0; i <= arr.size() - k; i++) {
+            int diff = arr.get(i + k - 1) - arr.get(i);
+            if (diff < min_diff)
+                min_diff = diff;
+        }
+        return min_diff;
+    }
+}
 ```
 
 </details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
 
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
+## Goodland Electricity
+Problem Link: https://hackerrank.com/challenges/pylons/problem
 
 <picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
 <details>
     <summary>C Solution</summary>
 
 ```c
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
 
+int pylons(int k, int arr_count, int* arr) {
+    int res = 0;
+    int i = 0;
+
+    while (i < arr_count) {
+        int pos = -1;
+        int st = min(i + k - 1, arr_count - 1);
+        int end = max(i - k + 1, 0);
+
+        for (int j = st; j >= end; j--) {
+            if (arr[j] == 1) {
+                pos = j;
+                break;
+            }
+        }
+
+        if (pos == -1) return -1;  
+        res++;                     
+        i = pos + k;              
+    }
+
+    return res;
+}
 ```
 
 </details>
@@ -1387,7 +1499,29 @@ Problem Link: ProblemLink
     <summary>C++ Solution</summary>
 
 ```cpp
-
+int pylons(int k, vector<int> arr) {
+    int n = arr.size();
+    int res = 0;
+    int i = 0;
+    while (i < n) {
+        int pos = -1;
+        int st = min(i + k -1, n - 1);
+        int end = max(i - k + 1, 0);
+        
+        for(int j = st; j >= end; j--) {
+            if(arr[j] == 1) {
+                pos = j;
+                break;
+            }
+        }
+        
+        if (pos == -1) return -1;
+        res++;
+        
+        i = pos + k;
+    }
+    return res;
+}
 ```
 
 </details>
@@ -1396,16 +1530,28 @@ Problem Link: ProblemLink
     <summary>Python Solution</summary>
 
 ```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
+def pylons(k, arr):
+    n = len(arr)
+    res = 0
+    i = 0
+    
+    while i < n:
+        pos = -1
+        st = min(i + k - 1, n - 1)
+        end = max(i - k + 1, 0)
+        
+        for j in range(st, end-1, -1):
+            if arr[j] == 1:
+                pos = j
+                break
+                
+        if pos == -1:
+            return -1
+        
+        res += 1
+        i = pos + k
+    
+    return res
 ```
 
 </details>
@@ -1414,16 +1560,31 @@ Problem Link: ProblemLink
     <summary>Java Solution</summary>
 
 ```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
+class Result {
+    public static int pylons(int k, List<Integer> arr) {
+        int n = arr.size();
+        int res = 0, i = 0;
+        
+        while (i < n) {
+            int pos = -1;
+            int st = Math.min(i + k - 1, n - 1);
+            int end = Math.max(i - k + 1, 0);
+            
+            for (int j = st; j >= end; j--) 
+                if (arr.get(j) == 1) {
+                    pos = j;
+                    break;
+                }
+                
+            if (pos == -1)
+                return -1;
+                
+            res++;
+            i = pos + k;
+        }
+        return res;
+    }
+}
 ```
 
 </details>
@@ -1445,7 +1606,46 @@ Problem Link: ProblemLink
     <summary>C++ Solution</summary>
 
 ```cpp
-
+long maximumPeople(vector<long> p, vector<long> x, vector<long> y, vector<long> r) {
+    int n = p.size();
+    int m = y.size();
+    
+    vector<pair<long, long>> towns(n);
+    for(int i = 0; i < n; i++)
+        towns[i] = {x[i], p[i]};
+    sort(towns.begin(), towns.end());
+    
+    vector<pair<long, int>> cloud_st, cloud_end;
+    for(int i = 0; i < m; i++) {
+        cloud_st.emplace_back(y[i] - r[i], i);
+        cloud_end.emplace_back(y[i] + r[i], i);
+    }
+    sort(cloud_st.begin(), cloud_st.end());
+    sort(cloud_end.begin(), cloud_end.end());
+    
+    set<int> active;
+    long sunny = 0;
+    vector<long> cloud_covered(m, 0);
+    
+    int s = 0, e = 0;
+    for (auto& [loc, pop] : towns) {
+        while (s < m && cloud_st[s].first <= loc) 
+            active.insert(cloud_st[s++].second);
+            
+        while (e < m && cloud_end[e].first < loc)
+            active.erase(cloud_end[e++].second);
+            
+        if (active.empty()) sunny += pop;
+        else if (active.size() == 1) {
+            int c = *active.begin();
+            cloud_covered[c] += pop;
+        }
+    }
+    
+    long ress = 0;
+    for(long cc : cloud_covered) ress = max(ress, cc);
+    return sunny + ress;
+}
 ```
 
 </details>
