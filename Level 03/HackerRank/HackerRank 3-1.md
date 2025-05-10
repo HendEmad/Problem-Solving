@@ -1589,15 +1589,107 @@ class Result {
 
 </details>
 
-## ProblemName
-Problem Link: ProblemLink
+## Cloudy Day
+Problem Link: https://www.hackerrank.com/challenges/cloudy-day/problem
 
 <picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
 <details>
     <summary>C Solution</summary>
 
 ```c
+typedef struct{
+    long loc;
+    long pop;
+} Town;
 
+typedef struct {
+    long pos;
+    int id;
+} Event;
+
+int cmp_event (const void *a, const void *b) {
+    Event* e1 = (Event*)a;
+    Event* e2 = (Event*)b;
+    return (e1 ->pos > e2 ->pos) - (e1 ->pos < e2 ->pos);
+}
+
+int cmp_town(const void *a, const void *b) {
+    Town* t1 = (Town*)a;
+    Town* t2 = (Town*)b;
+    return (t1 ->loc > t2 ->loc) - (t1 ->loc < t2 ->loc);
+}
+
+long maximumPeople(int p_count, long* p, int x_count, long* x, int y_count, long* y, int r_count, long* r) {
+    int n = p_count, m = y_count;
+    Town* towns = malloc(n * sizeof(Town));
+    for(int i = 0; i < n; i++) {
+        towns[i].loc = x[i];
+        towns[i].pop = p[i];
+    }
+    qsort(towns, n, sizeof(Town), cmp_town);
+    
+    Event* cloud_st = malloc(m * sizeof(Event));
+    Event* cloud_end = malloc(m * sizeof(Event));
+    for(int i = 0; i < m; i++) {
+        cloud_st[i] = (Event) {y[i] - r[i], i};
+        cloud_end[i] = (Event) {y[i] + r[i], i};
+    }
+    qsort(cloud_st, m, sizeof(Event), cmp_event);
+    qsort(cloud_end, m, sizeof(Event), cmp_event);
+    
+    char* is_active = calloc(m, sizeof(char));
+    long* cloud_covered = calloc(m, sizeof(long));
+    long sunny = 0;
+    
+    int s = 0, e = 0;
+    int active_cnt = 0;
+    int cur_cloud = -1;
+    for(int i = 0; i < n; i++) {
+        long loc = towns[i].loc, pop = towns[i].pop;
+        while(s < m && cloud_st[s].pos <= loc) {
+            int cid = cloud_st[s++].id;
+            is_active[cid] = 1;
+            active_cnt++;
+            if (active_cnt == 1) 
+                cur_cloud = cid;
+            else 
+                cur_cloud = -1;
+        }
+        while(e < m && cloud_end[e].pos < loc) {
+            int cid = cloud_end[e++].id;
+            is_active[cid] = 0;
+            active_cnt--;
+            if (active_cnt == 1) 
+                for(int j = 0; j < m; j++) 
+                    if(is_active[j]) {
+                        cur_cloud = j;
+                        break;
+                    }
+                    
+            else if(active_cnt == 0) 
+                cur_cloud = -1;
+            else 
+                cur_cloud = -2;
+        }
+        
+        if(active_cnt == 0) 
+            sunny += pop;
+        else if (active_cnt == 1 && cur_cloud >= 0) 
+            cloud_covered[cur_cloud] += pop;
+    }
+    
+    long ress = 0;
+    for(int i = 0; i < m; i++)
+        if(cloud_covered[i] > ress)
+            ress = cloud_covered[i];
+            
+    free(towns);
+    free(cloud_st);
+    free(cloud_end);
+    free(is_active);
+    free(cloud_covered);
+    return sunny + ress;
+}
 ```
 
 </details>
@@ -1654,74 +1746,32 @@ long maximumPeople(vector<long> p, vector<long> x, vector<long> y, vector<long> 
     <summary>Python Solution</summary>
 
 ```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
+def maximumPeople(p, x, y, r):
+    towns = sorted(zip(x, p))
+    cloud_st = sorted((y[i] - r[i], i) for i in range(len(y)));
+    cloud_end = sorted((y[i] + r[i], i) for i in range(len(y)));
+    
+    s = e = 0
+    m = len(y)
+    active = set()
+    sunny = 0
+    cloud_covered = [0] * m
+    
+    for loc, pop in towns:
+        while s < m and cloud_st[s][0] <= loc:
+            active.add(cloud_st[s][1])
+            s += 1
+        while e < m and cloud_end[e][0] < loc:
+            active.discard(cloud_end[e][1])
+            e += 1
+        
+        if not active:
+            sunny += pop
+        elif len(active) == 1:
+            cid = next(iter(active))
+            cloud_covered[cid] += pop
+        
+    return sunny + max(cloud_covered, default=0)
 ```
 
 </details>
@@ -1730,712 +1780,48 @@ Problem Link: ProblemLink
     <summary>Java Solution</summary>
 
 ```java
-
+class Result {
+    public static long maximumPeople(List<Long> p, List<Long> x, List<Long> y, List<Long> r) {
+        int n = p.size();
+        int m = y.size();
+        
+        List<long[]> towns = new ArrayList<>();
+        for (int i = 0; i < n; i++)
+            towns.add(new long[]{x.get(i), p.get(i)});
+        towns.sort(Comparator.comparingLong(a ->a[0]));
+        
+        List<long[]> cloud_st = new ArrayList<>();
+        List<long[]> cloud_end = new ArrayList<>();
+        for(int i = 0; i < m; i++) {
+            cloud_st.add(new long[]{y.get(i) - r.get(i), i});
+            cloud_end.add(new long[]{y.get(i) + r.get(i), i});
+        }
+        cloud_st.sort(Comparator.comparingLong(a ->a[0]));
+        cloud_end.sort(Comparator.comparingLong(a ->a[0]));
+        
+        Set<Integer> active = new HashSet<>();
+        long[] cloud_covered = new long[m];
+        long sunny = 0;
+        int s = 0, e = 0;
+        for(long[] town : towns) {
+            long loc = town[0], pop = town[1];
+            while (s < m && cloud_st.get(s)[0] <= loc)
+                active.add((int) cloud_st.get(s++)[1]);
+            while (e < m && cloud_end.get(e)[0] < loc)
+                active.remove((int) cloud_end.get(e++)[1]);
+                
+            if(active.isEmpty()) sunny += pop;
+            else if (active.size() == 1) {
+                int cid = active.iterator().next();
+                cloud_covered[cid] += pop;
+            }
+        }
+        long ress = 0;
+        for (long cc : cloud_covered)
+            ress = Math.max(ress, cc);
+            
+        return sunny + ress;
+    }
+}
 ```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
-</details>
-
-## ProblemName
-Problem Link: ProblemLink
-
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/c.png"></img></picture>
-<details>
-    <summary>C Solution</summary>
-
-```c
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/cpp.png"></img></picture>
-<details>
-    <summary>C++ Solution</summary>
-
-```cpp
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/python.png"></img></picture>
-<details>
-    <summary>Python Solution</summary>
-
-```python
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/golang.png"></img></picture>
-<details>
-    <summary>Go Solution</summary>
-
-```go
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/java.png"></img></picture>
-<details>
-    <summary>Java Solution</summary>
-
-```java
-
-```
-
-</details>
-<picture><img align="right" width="40" src="https://github.com/cs-MohamedAyman/cs-MohamedAyman/blob/master/logos/csharp.png"></img></picture>
-<details>
-    <summary>C# Solution</summary>
-
-```c#
-
-```
-
 </details>
